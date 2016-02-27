@@ -4,3 +4,6 @@ ClientUnity/Library
 ClientUnity/Clustering.CSharp.Editor.csproj
 ClientUnity/Clustering.CSharp.csproj
 ClientUnity/Clustering.sln
+ClientUnity/ClientUnity.CSharp.Editor.csproj
+ClientUnity/ClientUnity.CSharp.csproj
+ClientUnity/ClientUnity.sln
