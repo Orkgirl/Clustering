@@ -24,8 +24,6 @@ namespace Clustering
         public MainWindow()
         {
             InitializeComponent();
-
-            DataBaseClient.Init();
         }
     }
 }

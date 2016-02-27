@@ -79,6 +79,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataBase\DataBaseClient.cs" />
+    <Compile Include="DataBase\IDataBaseClient.cs" />
+    <Compile Include="ImportData\GetDataFromFile.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
