@@ -12,14 +12,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private DataGrid _dataGrid;
 
-    private List<string> _locations;
+    [SerializeField]
+    private Color[] _colors;
 
-    // Use this for initialization
+   
     void Start ()
     {
         var mapData = DataStorage.LoadData();
-
-        _locations = _map.GetAllLocations();
 
         var header = mapData.header.ToList();
 
@@ -27,6 +26,9 @@ public class MainMenu : MonoBehaviour
         foreach (var location in mapData.map)
         {
             var dataList = new List<string>();
+
+            dataList.Add(location.name);
+
             foreach (var locationDataKeyValue in location.data)
             {
                 dataList.Add(locationDataKeyValue.value.ToString());
