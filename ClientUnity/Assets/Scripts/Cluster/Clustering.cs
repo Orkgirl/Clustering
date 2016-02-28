@@ -3,6 +3,12 @@ using System;
 using System.Collections.Generic;
 
 
+public class ClusterUnit
+{
+    public List<string> Name;
+    public List<string> Id;
+}
+
 public class ClusterColumn
 {
     public string Name;

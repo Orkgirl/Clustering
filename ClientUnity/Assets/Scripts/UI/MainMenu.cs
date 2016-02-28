@@ -15,16 +15,16 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Color[] _colors;
 
-   
+    private StorageMapData _mapData;
+
+
     void Start ()
     {
-        var mapData = DataStorage.LoadData();
+        _mapData = DataStorage.LoadData();
 
-        InitDataGrid(mapData);
-        InitCluster(mapData);
-        
-        //_map.SetColor(_locations[Random.Range(0, _locations.Count)], new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
-
+        InitDataGrid(_mapData);
+        InitCluster(_mapData);
+       
         _dataGrid.Hide();
         _map.Hide();
     }
@@ -34,9 +34,20 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    public void ShowMapClaser(string key, Color color)
+    public void ShowMapClaser(List<ClusterUnit> clasers)
     {
-        ClusterMap map = null;// = Clustering.GetNormolize();
+        for (var i = 0; i < clasers.Count; i++)
+        {
+            foreach (var id in clasers[i].Id)
+            {
+                _map.SetColor(id, _colors[i]);
+            }
+        }
+    }
+
+    public void ShowMapAllParam(string key, Color color)
+    {
+        var map = Clustering.GetNormalize();
 
         if (map == null)
         {
@@ -46,10 +57,13 @@ public class MainMenu : MonoBehaviour
         List<ClusterColumn> column;
         if (map.Columns.TryGetValue(key, out column))
         {
-            column.Sort();
+            column.Sort((x, y) => x.Value.CompareTo(y.Value));
+
+            for (var i = 0; i < column.Count; i++)
+            {
+                _map.SetColor(column[i].Id, _colors[i]);
+            }
         }
-
-
     }
 
 
