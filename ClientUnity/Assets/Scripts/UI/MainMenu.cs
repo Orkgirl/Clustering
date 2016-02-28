@@ -36,8 +36,18 @@ public class MainMenu : MonoBehaviour
 
     public void ShowMapClaser(string key, Color color)
     {
-        ClusterMap map;// = Clustering.GetNormolize();
+        ClusterMap map = null;// = Clustering.GetNormolize();
 
+        if (map == null)
+        {
+            return;
+        }
+
+        List<ClusterColumn> column;
+        if (map.Columns.TryGetValue(key, out column))
+        {
+            column.Sort();
+        }
 
 
     }
