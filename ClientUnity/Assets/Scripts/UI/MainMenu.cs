@@ -34,6 +34,15 @@ public class MainMenu : MonoBehaviour
         
     }
 
+    public void ShowMapClaser(string key, Color color)
+    {
+        ClusterMap map;// = Clustering.GetNormolize();
+
+
+
+    }
+
+
     private void InitCluster(StorageMapData storageMapData)
     {
         var result = new ClusterMap {Columns = new Dictionary<string, List<ClusterColumn>>()};
