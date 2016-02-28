@@ -13,6 +13,10 @@ public class ClusterColumn
 public class ClusterMap
 {
     public Dictionary<string, List<ClusterColumn>> Columns;
+    public ClusterMap()
+    {
+        Columns = new Dictionary<string, List<ClusterColumn>>();
+    }
 }
 
 public static class Clustering
@@ -29,11 +33,8 @@ public static class Clustering
     public static ClusterMap Normolize(ClusterMap orig)
     {
        var result = new ClusterMap();
-        List<ClusterColumn> normalizeList = new List<ClusterColumn>();
-        float originalValue = 0;
         float averageQuadratic = 0;
         float sampleMean = 0;
-        float normaliseValue;
 
         var keys = orig.Columns.Keys;
         foreach(var key in keys)
@@ -41,28 +42,45 @@ public static class Clustering
             List<ClusterColumn> columns;
             if(orig.Columns.TryGetValue(key, out columns))
             {
+                if (columns.Count == 0)
+                {
+                    continue;
+                }
+
                 float sumOfAllValues = 0;
                 for (int i = 0; i < columns.Count; i++)
                 {                    
                     sumOfAllValues += columns[i].Value;
                 }
-                sampleMean = (1 / columns.Count) * sumOfAllValues;
+                sampleMean = (1f / (float)columns.Count) * sumOfAllValues;
 
                 float sumOfDifferenceCurrentSample = 0;
                 for (int i = 0; i < columns.Count; i++)
                 {
                     sumOfDifferenceCurrentSample += (columns[i].Value - sampleMean) * (columns[i].Value - sampleMean);
                 }
-                averageQuadratic = (float) Math.Sqrt((1 / (columns.Count - 1)) * sumOfDifferenceCurrentSample);
+                averageQuadratic = (float) Math.Sqrt((1f / ((float)columns.Count - 1f)) * sumOfDifferenceCurrentSample);
+
+                result.Columns.Add(key, new List<ClusterColumn>());
+                for (int i = 0; i < columns.Count; i++)
+                {
+                    var columnItem = new ClusterColumn();
+                    columnItem.Value = (columns[i].Value - sampleMean) / averageQuadratic;
+                    columnItem.Name = columns[i].Name;
+                    columnItem.Id = columns[i].Id;
+                    result.Columns[key].Add(columnItem);
+                }
             }
             else
             {
-                UnityEngine.Debug.LogError("!!!!!!!!!!!!");
+                UnityEngine.Debug.LogError("Error! Invalid key" + key);
             }
         }
-               
-        normaliseValue = (originalValue - sampleMean) / averageQuadratic;
-
         return result;
+    }
+
+    public static ClusterMap GetNormalize()
+    {
+        return _normalizeCluster;
     }
 }
