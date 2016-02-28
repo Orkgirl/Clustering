@@ -36,13 +36,21 @@ public class MainMenu : MonoBehaviour
 
     private void InitCluster(StorageMapData storageMapData)
     {
-        var result = new ClusterMap();
-        var header = storageMapData.header.ToList();
+        var result = new ClusterMap {Columns = new Dictionary<string, List<ClusterColumn>>()};
 
-        //foreach (var location in storageMapData.map)
-        //{
-        //    location.name
-        //}
+        var header = storageMapData.header.ToList();
+        foreach (var VARIABLE in header)
+        {
+            result.Columns.Add(VARIABLE, new List<ClusterColumn>());
+        }
+
+        foreach (var location in storageMapData.map)
+        {
+            foreach (var storagelocationDataKeyValue in location.data)
+            {
+                result.Columns[storagelocationDataKeyValue.key].Add(new ClusterColumn() {Name = location.name, Id = location.id, Value = storagelocationDataKeyValue .value});
+            }
+        }
 
         Clustering.Init(result);
     }
