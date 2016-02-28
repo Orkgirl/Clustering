@@ -18,6 +18,22 @@ public class MainMenu : MonoBehaviour
     {
         _locations = _map.GetAllLocations();
 
+        _dataGrid.Init(new List<string>() { "name:", "size:" }, new Dictionary<string, List<string>>()
+        {
+            {
+                "test1", new List<string>() {"fff", "dddd", "ffffss", "hhhhh"}
+
+            },
+            {
+                "test2", new List<string>() {"fff", "dddd", "ffffss", "hhhhh"}
+
+            },
+            {
+                "test3", new List<string>() {"fff", "dddd", "ffffss", "hhhhh"}
+
+            }
+        });
+
         _dataGrid.Hide();
         _map.Hide();
     }
@@ -33,6 +49,7 @@ public class MainMenu : MonoBehaviour
     public void LoadButtonHendler()
     {
         _dataGrid.Show();
+        _map.Hide();
     }
 
     public void ShowMapButtonHendler()
