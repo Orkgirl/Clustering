@@ -20,26 +20,9 @@ public class MainMenu : MonoBehaviour
     {
         var mapData = DataStorage.LoadData();
 
-        var header = mapData.header.ToList();
-
-        Dictionary<string, List<string>> data = new Dictionary<string, List<string>>();
-        foreach (var location in mapData.map)
-        {
-            var dataList = new List<string>();
-
-            dataList.Add(location.name);
-
-            foreach (var locationDataKeyValue in location.data)
-            {
-                dataList.Add(locationDataKeyValue.value.ToString());
-            }
-            data.Add(location.name, dataList);
-
-            _map.SetColor(location.id, new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
-        }
-
-        _dataGrid.Init(header, data);
-
+        InitDataGrid(mapData);
+        InitCluster(mapData);
+        
         //_map.SetColor(_locations[Random.Range(0, _locations.Count)], new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
 
         _dataGrid.Hide();
@@ -49,6 +32,43 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void InitCluster(StorageMapData storageMapData)
+    {
+        var result = new ClusterMap();
+        var header = storageMapData.header.ToList();
+
+        //foreach (var location in storageMapData.map)
+        //{
+        //    location.name
+        //}
+
+        Clustering.Init(result);
+    }
+
+    private void InitDataGrid(StorageMapData storageMapData)
+    {
+        var header = storageMapData.header.ToList();
+
+        Dictionary<string, List<string>> stringData = new Dictionary<string, List<string>>();
+
+        foreach (var location in storageMapData.map)
+        {
+            var stringList = new List<string>();
+
+            stringList.Add(location.name);
+
+            foreach (var locationDataKeyValue in location.data)
+            {
+                stringList.Add(locationDataKeyValue.value.ToString());
+            }
+
+            stringData.Add(location.name, stringList);
+        }
+
+        _dataGrid.Init(header, stringData);
+
     }
 
     public void LoadButtonHendler()

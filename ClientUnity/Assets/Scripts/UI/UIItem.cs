@@ -30,7 +30,7 @@ public class UIItem : MonoBehaviour
         if (prefab == null)
         {
             throw new Exception(this.name + " AddChild invalid prefab: null");
-            return null;
+            //return null;
         }
         var go = Instantiate(prefab) as GameObject;
 
@@ -45,7 +45,7 @@ public class UIItem : MonoBehaviour
         {
             Destroy(go);
             throw new Exception(this.name + " AddChild invalid prefab: " + prefab.name);
-            return null;
+            //return null;
         }
 
         return result;

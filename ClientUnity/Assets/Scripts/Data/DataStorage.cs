@@ -4,36 +4,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class locationDataKeyValue
+public class StoragelocationDataKeyValue
 {
     public string key;
     public float value;
 }
 
 [Serializable]
-public class locationData
+public class StoragelocationData
 {
     public string name;
     public string id;
-    public locationDataKeyValue[] data;
+    public StoragelocationDataKeyValue[] data;
 }
 
 
 [Serializable]
-public class MapData
+public class StorageMapData
 {
     public string[] header;
-    public locationData[] map;
+    public StoragelocationData[] map;
 }
 
 public static class DataStorage
 {
     
-    public static MapData LoadData()
+    public static StorageMapData LoadData()
     {
         var textAsset = Resources.Load<TextAsset>("Data2");
 
-        return JsonUtility.FromJson<MapData>(textAsset.text);
+        return JsonUtility.FromJson<StorageMapData>(textAsset.text);
     }
 }
 
