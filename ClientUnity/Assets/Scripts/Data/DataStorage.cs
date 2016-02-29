@@ -3,6 +3,20 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+public static class DataStorageConfig
+{
+
+    public static Dictionary<string, string> TableNames = new Dictionary<string, string>()
+    {
+        {"1911 - 1939", "Data2"},
+        {"1939 - 1945", "Data2"},
+        {"1945 - 1970", "Data2"},
+        {"1970 - 1990", "Data2"}
+    };
+}
+
 [Serializable]
 public class StoragelocationDataKeyValue
 {
@@ -29,9 +43,9 @@ public class StorageMapData
 public static class DataStorage
 {
     
-    public static StorageMapData LoadData()
+    public static StorageMapData LoadData(string name)
     {
-        var textAsset = Resources.Load<TextAsset>("Data2");
+        var textAsset = Resources.Load<TextAsset>(name);
 
         return JsonUtility.FromJson<StorageMapData>(textAsset.text);
     }

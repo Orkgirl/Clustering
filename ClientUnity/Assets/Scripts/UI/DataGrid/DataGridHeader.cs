@@ -19,6 +19,14 @@ public class DataGridHeader : UIItem
 
     public void Init(List<string> data)
     {
+        if (_dataGridColumns != null && _dataGridColumns.Count > 0)
+        {
+            foreach (var dataGridColumn in _dataGridColumns)
+            {
+                Destroy(dataGridColumn.gameObject);
+            }
+        }
+
         _dataGridColumns = new List<DataGridColumn>();
 
         _data = data;

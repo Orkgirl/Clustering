@@ -101,10 +101,21 @@ public static class Clustering
     private static ClusterMap _origCluster;
     private static ClusterMap _normalizeCluster;
 
+    private static bool _isInitialize = false;
+    public static bool IsInitialize { get { return _isInitialize; } }
+
     public static void Init(ClusterMap mapData)
     {
-        _origCluster = mapData;
-        _normalizeCluster = Normolize(_origCluster);
+        if (mapData != null)
+        {
+            _origCluster = mapData;
+            _normalizeCluster = Normolize(_origCluster);
+
+            if (_origCluster != null && _normalizeCluster != null)
+            {
+                _isInitialize = true;
+            }
+        }
     }
 
     public static List<ClusterUnit> GetClasters(int clustersCount)
@@ -215,5 +226,10 @@ public static class Clustering
     public static ClusterMap GetNormalize()
     {
         return _normalizeCluster;
+    }
+
+    public static ClusterMap GetRaw()
+    {
+        return _origCluster;
     }
 }

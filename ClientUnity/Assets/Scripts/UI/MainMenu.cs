@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
+
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private BaseState _base;
 
     [SerializeField]
     private Map _map;
@@ -13,63 +17,39 @@ public class MainMenu : MonoBehaviour
     private DataGrid _dataGrid;
 
     [SerializeField]
-    private LizmaState _lizmaState;
+    private Analyze _analyze;
+
+    
 
     [SerializeField]
-    private Color[] _colors;
+    private Dropdown _dropdownDataTable;
 
-    private StorageMapData _mapData;
+    //private StorageMapData _mapData;
 
 
-    void Start ()
+    private void Start()
     {
-        _mapData = DataStorage.LoadData();
+        var dataList = DataStorageConfig.TableNames.Keys.ToList();
+        if (dataList.Count > 0)
+        {
+            ChooseDropdownHendler(0);
+            _dropdownDataTable.AddOptions(dataList);
+        }
 
-        InitDataGrid(_mapData);
-        InitCluster(_mapData);
-
-        ShowMapClaser(Clustering.GetClasters(4));
-
+        _analyze.Hide();
+        _base.Show();
         _dataGrid.Hide();
         _map.Hide();
-        _lizmaState.Hide();
     }
 
     void Update()
     {
-        
-    }
-
-    public void ShowMapClaser(List<ClusterUnit> clasers)
-    {
-        var map = Clustering.GetNormalize();
-
-        for (var i = 0; i < clasers.Count; i++)
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            var item = map.GetFirstInRow(clasers[i].Row);
-            _map.SetColor(item.Id, _colors[clasers[i].Cluster]);
+            Application.Quit();
         }
     }
-
-    public void ShowMapAllParam(string key, Color color)
-    {
-        var map = Clustering.GetNormalize();
-
-        if (map == null)
-        {
-            return;
-        }
-
-        List<ClusterDataItem> column = map.ColumnsToList(key);
-        
-        column.Sort((x, y) => x.Value.CompareTo(y.Value));
-
-        for (var i = 0; i < column.Count; i++)
-        {
-            _map.SetColor(column[i].Id, _colors[i]);
-        }
-    }
-
+    
 
     private void InitCluster(StorageMapData storageMapData)
     {
@@ -86,24 +66,23 @@ public class MainMenu : MonoBehaviour
         Clustering.Init(result);
     }
 
-    private void InitDataGrid(StorageMapData storageMapData)
+    private void InitDataGrid(ClusterMap clusterMap)
     {
-        var header = storageMapData.header.ToList();
+        var header = new List<string>() {"Name:"};
+        header.AddRange(clusterMap.ColumnsKeys);
 
         Dictionary<string, List<string>> stringData = new Dictionary<string, List<string>>();
 
-        foreach (var location in storageMapData.map)
+        foreach (var rowsKey in clusterMap.RowsKeys)
         {
-            var stringList = new List<string>();
-
-            stringList.Add(location.name);
-
-            foreach (var locationDataKeyValue in location.data)
+            var stringList = new List<string>() {rowsKey};
+            foreach (var clusterDataItem in clusterMap.RowsToList(rowsKey))
             {
-                stringList.Add(locationDataKeyValue.value.ToString());
+
+                stringList.Add(clusterDataItem.Value.ToString());
             }
 
-            stringData.Add(location.name, stringList);
+            stringData.Add(rowsKey, stringList);
         }
 
         _dataGrid.Init(header, stringData);
@@ -112,22 +91,83 @@ public class MainMenu : MonoBehaviour
 
     public void LoadButtonHendler()
     {
-        _dataGrid.Show();
+        if (!Clustering.IsInitialize)
+        {
+            return;
+        }
+
+        _analyze.Hide();
+        _base.Hide();
         _map.Hide();
-        _lizmaState.Hide();
+        _dataGrid.Show();
+
+        InitDataGrid(Clustering.GetRaw());
+    }
+
+    public void NormalizeButtonHendler()
+    {
+        if (!Clustering.IsInitialize)
+        {
+            return;
+        }
+
+        _analyze.Hide();
+        _base.Hide();
+        _map.Hide();
+        _dataGrid.Show();
+
+        InitDataGrid(Clustering.GetNormalize());
     }
 
     public void ShowMapButtonHendler()
     {
-        _map.Show();
+        if (!Clustering.IsInitialize)
+        {
+            return;
+        }
+
+        _analyze.Hide();
+        _base.Hide();
         _dataGrid.Hide();
-        _lizmaState.Hide();
+        _map.Show();
     }
 
-    public void SHowLizmaState()
+
+    public void AnalyzeButtonHendler()
     {
-        _map.Hide();
+        if (!Clustering.IsInitialize)
+        {
+            return;
+        }
+
+        _base.Hide();
         _dataGrid.Hide();
-        _lizmaState.Show();
+        _map.Hide();
+        _analyze.Show();
+    }
+
+    public void ChooseDropdownHendler(int index)
+    {
+        var list = DataStorageConfig.TableNames.Keys.ToList();
+        if (index < list.Count)
+        {
+            var key = list[index];
+
+            string tableName;
+            if (DataStorageConfig.TableNames.TryGetValue(key, out tableName))
+            {
+                ChooseDropdownHendler(tableName);
+            }
+        }
+
+    }
+
+    public void ChooseDropdownHendler(string value)
+    {
+        _base.Hide();
+        _dataGrid.Hide();
+        _map.Hide();
+
+        InitCluster(DataStorage.LoadData(value));
     }
 }

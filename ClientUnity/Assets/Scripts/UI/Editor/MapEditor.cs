@@ -11,6 +11,8 @@ public class MapEditor : Editor {
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
+
         Map map = (Map)target;
 
         GUILayout.Label("Map");

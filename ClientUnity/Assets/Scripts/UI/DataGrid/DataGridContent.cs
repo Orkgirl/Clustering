@@ -23,8 +23,15 @@ public class DataGridContent : UIItem
 
     public void Init(Dictionary<string, List<string>> data)
     {
-        _dataGridLines = new Dictionary<string, DataGridLine>();
+        if (_dataGridLines != null && _dataGridLines.Values.Count > 0)
+        {
+            foreach (var dataGridLine in _dataGridLines.Values)
+            {
+                Destroy(dataGridLine.gameObject);
+            }
+        }
 
+        _dataGridLines = new Dictionary<string, DataGridLine>();
         var lineNuber = 0;
         foreach (var key in data.Keys)
         {
