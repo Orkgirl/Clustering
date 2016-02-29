@@ -11,9 +11,7 @@ public static class DataStorageConfig
     public static Dictionary<string, string> TableNames = new Dictionary<string, string>()
     {
         {"2012 - 2013", "Data2"},
-        {"2012 - 2013", "Data2"},
-        {"2012 - 2013", "Data2"},
-        {"2012 - 2013", "Data2"}
+        
     };
 }
 
