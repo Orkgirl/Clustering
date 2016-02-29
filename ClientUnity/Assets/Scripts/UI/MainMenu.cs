@@ -13,6 +13,9 @@ public class MainMenu : MonoBehaviour
     private DataGrid _dataGrid;
 
     [SerializeField]
+    private LizmaState _lizmaState;
+
+    [SerializeField]
     private Color[] _colors;
 
     private StorageMapData _mapData;
@@ -27,6 +30,7 @@ public class MainMenu : MonoBehaviour
        
         _dataGrid.Hide();
         _map.Hide();
+        _lizmaState.Hide();
     }
 
     void Update()
@@ -116,12 +120,20 @@ public class MainMenu : MonoBehaviour
     {
         _dataGrid.Show();
         _map.Hide();
+        _lizmaState.Hide();
     }
 
     public void ShowMapButtonHendler()
     {
         _map.Show();
         _dataGrid.Hide();
+        _lizmaState.Hide();
     }
 
+    public void SHowLizmaState()
+    {
+        _map.Hide();
+        _dataGrid.Hide();
+        _lizmaState.Show();
+    }
 }

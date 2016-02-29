@@ -34,11 +34,13 @@ public class DataGridContent : UIItem
                 throw new Exception("DataGridContent Init: invalid key or value " + key + " : " + value);
             }
 
-            var dataGridLine = AddChild<DataGridLine>(_line, new Vector3(0f, (_itemSize.y + _itemOffset.y) * -lineNuber, 0f));
+            var dataGridLine = Instantiate(_line).GetComponent<DataGridLine>();//AddChild<DataGridLine>(_line, new Vector3(0f, (_itemSize.y + _itemOffset.y) * -lineNuber, 0f));
 
+            
             dataGridLine.Init(value, _column, _item, _itemSize, _itemOffset);
 
             _dataGridLines.Add(key, dataGridLine);
+            dataGridLine.transform.SetParent(this.transform, false);
 
             lineNuber++;
         }
