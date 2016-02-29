@@ -27,7 +27,9 @@ public class MainMenu : MonoBehaviour
 
         InitDataGrid(_mapData);
         InitCluster(_mapData);
-       
+
+        ShowMapClaser(Clustering.GetClasters(4));
+
         _dataGrid.Hide();
         _map.Hide();
         _lizmaState.Hide();
@@ -40,12 +42,12 @@ public class MainMenu : MonoBehaviour
 
     public void ShowMapClaser(List<ClusterUnit> clasers)
     {
+        var map = Clustering.GetNormalize();
+
         for (var i = 0; i < clasers.Count; i++)
         {
-            foreach (var id in clasers[i].Id)
-            {
-                _map.SetColor(id, _colors[i]);
-            }
+            var item = map.GetFirstInRow(clasers[i].Row);
+            _map.SetColor(item.Id, _colors[clasers[i].Cluster]);
         }
     }
 
@@ -58,34 +60,26 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        List<ClusterColumn> column;
-        if (map.Columns.TryGetValue(key, out column))
-        {
-            column.Sort((x, y) => x.Value.CompareTo(y.Value));
+        List<ClusterDataItem> column = map.ColumnsToList(key);
+        
+        column.Sort((x, y) => x.Value.CompareTo(y.Value));
 
-            for (var i = 0; i < column.Count; i++)
-            {
-                _map.SetColor(column[i].Id, _colors[i]);
-            }
+        for (var i = 0; i < column.Count; i++)
+        {
+            _map.SetColor(column[i].Id, _colors[i]);
         }
     }
 
 
     private void InitCluster(StorageMapData storageMapData)
     {
-        var result = new ClusterMap {Columns = new Dictionary<string, List<ClusterColumn>>()};
-
-        var header = storageMapData.header.ToList();
-        foreach (var VARIABLE in header)
-        {
-            result.Columns.Add(VARIABLE, new List<ClusterColumn>());
-        }
+        var result = new ClusterMap ();
 
         foreach (var location in storageMapData.map)
         {
             foreach (var storagelocationDataKeyValue in location.data)
             {
-                result.Columns[storagelocationDataKeyValue.key].Add(new ClusterColumn() {Name = location.name, Id = location.id, Value = storagelocationDataKeyValue .value});
+                result.Add(new ClusterDataItem() {Row = location.name, Column = storagelocationDataKeyValue.key, Id = location.id, Value = storagelocationDataKeyValue .value});
             }
         }
 
