@@ -10,10 +10,10 @@ public static class DataStorageConfig
 
     public static Dictionary<string, string> TableNames = new Dictionary<string, string>()
     {
-        {"1911 - 1939", "Data2"},
-        {"1939 - 1945", "Data2"},
-        {"1945 - 1970", "Data2"},
-        {"1970 - 1990", "Data2"}
+        {"2012 - 2013", "Data2"},
+        {"2012 - 2013", "Data2"},
+        {"2012 - 2013", "Data2"},
+        {"2012 - 2013", "Data2"}
     };
 }
 
