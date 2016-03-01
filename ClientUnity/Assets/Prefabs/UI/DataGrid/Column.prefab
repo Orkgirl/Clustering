@@ -11,6 +11,7 @@ GameObject:
   - 222: {fileID: 22221344}
   - 114: {fileID: 11451390}
   - 114: {fileID: 11456318}
+  - 114: {fileID: 11469634}
   m_Layer: 5
   m_Name: Column
   m_TagString: Untagged
@@ -56,6 +57,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fc592e8c6853f4bac99a3c6877989f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _item: {fileID: 0}
+  _value: 
+--- !u!114 &11469634
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 100
+  m_MinHeight: 30
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
 --- !u!222 &22221344
 CanvasRenderer:
   m_ObjectHideFlags: 1

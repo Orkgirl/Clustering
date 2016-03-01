@@ -29,6 +29,7 @@ public class Map : UIItem
     [SerializeField] public List<MapImageData> MapList;
 
     private int _clustersCount = 2;
+    private int _columnIndex = 0;
 
     private ClusterMap _clusterMap;
 
@@ -70,7 +71,7 @@ public class Map : UIItem
         _mapColumnDropdown.AddOptions(_clusterMap.ColumnsKeys.ToList());
 
         var listClusterCount = new List<string>();
-        for (var i = 0; i < 27; i++)
+        for (var i = 2; i < 27; i++)
         {
             listClusterCount.Add(i.ToString());
         }
@@ -80,17 +81,27 @@ public class Map : UIItem
 
     public void SetClasterCount(int index)
     {
-        _clustersCount = index;
+        _clustersCount = index + 2;
+        UpdateData();
     }
 
     public void ShowOnMapColumn(int index)
     {
+        _columnIndex = index;
+        UpdateData();
+    }
+
+    public void UpdateData()
+    {
         var list = _clusterMap.ColumnsKeys.ToList();
-        if (index < list.Count)
+        if (_columnIndex < list.Count)
         {
-            ShowOnMapColumn(list[index]);
+            ShowOnMapColumn(list[_columnIndex]);
         }
     }
+
+    
+
 
     public void ShowOnMapClaser(List<ClusterUnit> clasers)
     {

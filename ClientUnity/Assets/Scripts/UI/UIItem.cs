@@ -14,18 +14,8 @@ public class UIItem : MonoBehaviour
     {
         this.gameObject.SetActive(true);
     }
-
-    public virtual T AddChild<T>(GameObject prefab) where T : UIItem
-    {
-        return AddChild<T>(prefab, Vector3.zero, Quaternion.identity);
-    }
-
-    public virtual T AddChild<T>(GameObject prefab, Vector3 position) where T : UIItem
-    {
-        return AddChild<T>(prefab, position, Quaternion.identity);
-    }
-
-    public virtual T AddChild<T>(GameObject prefab, Vector3 position, Quaternion rotation) where T : UIItem
+   
+    public virtual T AddChild<T>(GameObject prefab) where T : MonoBehaviour
     {
         if (prefab == null)
         {
@@ -34,10 +24,8 @@ public class UIItem : MonoBehaviour
         }
         var go = Instantiate(prefab) as GameObject;
 
-        go.transform.SetParent(this.transform);
-        go.transform.localPosition = position;
-        go.transform.localRotation = rotation;
-        go.transform.localScale = Vector3.one;
+        go.transform.SetParent(this.transform, false);
+
 
         var result = go.GetComponent<T>();
 
@@ -50,5 +38,4 @@ public class UIItem : MonoBehaviour
 
         return result;
     }
-
 }

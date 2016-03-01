@@ -39,7 +39,7 @@ public class DataGridLine : UIItem
         var columNuber = 0;
         foreach (var value in _data)
         {
-            var dataGridColumn = AddChild<DataGridColumn>(_column, new Vector3((_itemSize.x + _itemOffset.x) * columNuber, 0f, 0f));
+            var dataGridColumn = AddChild<DataGridColumn>(_column);
 
             dataGridColumn.Init(value, _item);
 
