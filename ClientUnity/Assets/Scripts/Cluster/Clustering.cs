@@ -104,12 +104,19 @@ public static class Clustering
     private static bool _isInitialize = false;
     public static bool IsInitialize { get { return _isInitialize; } }
 
+    public static List<String> Indicators { get; set; }
+    public static List<String> IndicatorsAll { get; private set; }
+
     public static void Init(ClusterMap mapData)
     {
         if (mapData != null)
         {
             _origCluster = mapData;
             _normalizeCluster = Normolize(_origCluster);
+
+            Indicators = _origCluster.RowsKeys;
+            IndicatorsAll = _origCluster.RowsKeys;
+            
 
             if (_origCluster != null && _normalizeCluster != null)
             {

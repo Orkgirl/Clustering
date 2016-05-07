@@ -19,7 +19,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Analyze _analyze;
 
-    
+    [SerializeField]
+    private IndicatorSelection _indicator;
 
     [SerializeField]
     private Dropdown _dropdownDataTable;
@@ -40,6 +41,7 @@ public class MainMenu : MonoBehaviour
         _base.Show();
         _dataGrid.Hide();
         _map.Hide();
+        _indicator.Hide();
     }
 
     void Update()
@@ -69,7 +71,8 @@ public class MainMenu : MonoBehaviour
     private void InitDataGrid(ClusterMap clusterMap)
     {
         var header = new List<string>() {"Name:"};
-        header.AddRange(clusterMap.ColumnsKeys);
+        
+        header.AddRange(Clustering.Indicators);
 
         Dictionary<string, List<string>> stringData = new Dictionary<string, List<string>>();
 
@@ -78,8 +81,10 @@ public class MainMenu : MonoBehaviour
             var stringList = new List<string>() {rowsKey};
             foreach (var clusterDataItem in clusterMap.RowsToList(rowsKey))
             {
-
-                stringList.Add(clusterDataItem.Value.ToString());
+                if (Clustering.Indicators.Contains(clusterDataItem.Column))
+                {
+                    stringList.Add(clusterDataItem.Value.ToString());
+                }
             }
 
             stringData.Add(rowsKey, stringList);
@@ -100,6 +105,7 @@ public class MainMenu : MonoBehaviour
         _base.Hide();
         _map.Hide();
         _dataGrid.Show();
+        _indicator.Hide();
 
         InitDataGrid(Clustering.GetRaw());
     }
@@ -115,6 +121,7 @@ public class MainMenu : MonoBehaviour
         _base.Hide();
         _map.Hide();
         _dataGrid.Show();
+        _indicator.Hide();
 
         InitDataGrid(Clustering.GetNormalize());
     }
@@ -130,6 +137,7 @@ public class MainMenu : MonoBehaviour
         _base.Hide();
         _dataGrid.Hide();
         _map.Show();
+        _indicator.Hide();
     }
 
 
@@ -144,6 +152,21 @@ public class MainMenu : MonoBehaviour
         _dataGrid.Hide();
         _map.Hide();
         _analyze.Show();
+        _indicator.Hide();
+    }
+
+    public void IndicatorSelectButtonHendler()
+    {
+        if (!Clustering.IsInitialize)
+        {
+            return;
+        }
+
+        _analyze.Hide();
+        _base.Hide();
+        _map.Hide();
+        _dataGrid.Hide();
+        _indicator.Show();
     }
 
     public void ChooseDropdownHendler(int index)
@@ -167,6 +190,7 @@ public class MainMenu : MonoBehaviour
         _base.Hide();
         _dataGrid.Hide();
         _map.Hide();
+        _indicator.Hide();
 
         InitCluster(DataStorage.LoadData(value));
     }
