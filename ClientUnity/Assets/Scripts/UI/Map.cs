@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Entity;
+using Assets.Scripts.Managers;
 using UnityEngine.UI;
 
 [Serializable]
@@ -15,8 +17,10 @@ public class MapImageData
     public Image Value;
 }
 
-public class Map : UIItem
+public class Map : UIItem, IEntity
 {
+    private ClasterManager _clasterManager;
+
     [SerializeField]
     public Dropdown _mapColumnDropdown;
 
@@ -31,7 +35,17 @@ public class Map : UIItem
     private int _clustersCount = 2;
     private int _columnIndex = 0;
 
-    private ClusterMap _clusterMap;
+    //private ClusterMap _clusterMap;
+
+    public void Install()
+    {
+        _clasterManager = EntityContext.Get<ClasterManager>();
+    }
+
+    public void Initialaze()
+    {
+        
+    }
 
     public void SetColor(string key, Color color)
     {
@@ -66,9 +80,9 @@ public class Map : UIItem
     public override void Show()
     {
         base.Show();
-        _clusterMap = Clustering.GetRaw();
+        //_clusterMap = Clustering.GetRaw();
         _mapColumnDropdown.ClearOptions();
-        _mapColumnDropdown.AddOptions(_clusterMap.ColumnsKeys.ToList());
+        _mapColumnDropdown.AddOptions(_clasterManager.GetRaw().ColumnsKeys.ToList());
 
         var listClusterCount = new List<string>();
         for (var i = 2; i < 27; i++)
@@ -93,19 +107,16 @@ public class Map : UIItem
 
     public void UpdateData()
     {
-        var list = _clusterMap.ColumnsKeys.ToList();
+        var list = _clasterManager.GetRaw().ColumnsKeys.ToList();
         if (_columnIndex < list.Count)
         {
             ShowOnMapColumn(list[_columnIndex]);
         }
     }
 
-    
-
-
     public void ShowOnMapClaser(List<ClusterUnit> clasers)
     {
-        var map = Clustering.GetNormalize();
+        var map = _clasterManager.GetNormalize();
 
         for (var i = 0; i < clasers.Count; i++)
         {
@@ -121,7 +132,7 @@ public class Map : UIItem
             return;
         }
 
-        List<ClusterDataItem> columns = _clusterMap.ColumnsToList(column);
+        List<ClusterDataItem> columns = _clasterManager.GetRaw().ColumnsToList(column);
 
         int itemInClaster = (int)Mathf.Round((float)columns.Count/(float)_clustersCount);
 
@@ -144,8 +155,6 @@ public class Map : UIItem
                     ++currentClaster;
                 }
             }
-
-            
         }
     }
 }

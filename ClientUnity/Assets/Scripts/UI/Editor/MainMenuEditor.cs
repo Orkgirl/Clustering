@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine.UI;
 
 
-[CustomEditor(typeof (MainMenu))]
+[CustomEditor(typeof (TopMenuView))]
 public class MainMenuEditor : Editor
 {
 

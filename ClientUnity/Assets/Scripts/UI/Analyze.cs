@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Entity;
+using Assets.Scripts.Managers;
 using UnityEngine.UI;
 
 public class Analyze : UIItem
 {
+    private ClasterManager _clasterManager;
+
     [SerializeField] private GameObject _togglePrefab;
 
     [SerializeField] private UIItem _rowTogglePanel;
@@ -17,8 +21,7 @@ public class Analyze : UIItem
 
     [SerializeField]
     public InputField _outputClustersCount;
-
-    private ClusterMap _clusterMap;
+    
 
     private Dictionary<string, Toggle> _rowToggleList;
     private Dictionary<string, Toggle> _columnToggleList;
@@ -29,11 +32,11 @@ public class Analyze : UIItem
     {
         base.Show();
 
-        _clusterMap = Clustering.GetNormalize();
+        _clasterManager = EntityContext.Get<ClasterManager>();
 
         Clear();
 
-        foreach (var columnsKey in _clusterMap.ColumnsKeys)
+        foreach (var columnsKey in _clasterManager.GetNormalize().ColumnsKeys)
         {
             var columnToggle = _columnTogglePanel.AddChild<Toggle>(_togglePrefab);
 
@@ -43,7 +46,7 @@ public class Analyze : UIItem
             _columnToggleList.Add(columnsKey, columnToggle);
         }
 
-        foreach (var rowKey in _clusterMap.RowsKeys)
+        foreach (var rowKey in _clasterManager.GetNormalize().RowsKeys)
         {
             var rowToggle = _rowTogglePanel.AddChild<Toggle>(_togglePrefab);
 
@@ -121,7 +124,7 @@ public class Analyze : UIItem
     private void InitDataGrid()
     {
 
-        var clasrerUnits = Clustering.GetClasters(_clusterCount);
+        var clasrerUnits = _clasterManager.GetClasters(_clusterCount);
 
         var header = new List<string>() { "Name:", "Cluster:" };
 

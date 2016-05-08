@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 
 public class UIItem : MonoBehaviour
 {
@@ -28,6 +27,30 @@ public class UIItem : MonoBehaviour
 
 
         var result = go.GetComponent<T>();
+
+        if (result == null)
+        {
+            Destroy(go);
+            throw new Exception(this.name + " AddChild invalid prefab: " + prefab.name);
+            //return null;
+        }
+
+        return result;
+    }
+
+    public virtual Component AddChild(GameObject prefab, Type type)
+    {
+        if (prefab == null)
+        {
+            throw new Exception(this.name + " AddChild invalid prefab: null");
+            //return null;
+        }
+        var go = Instantiate(prefab) as GameObject;
+
+        go.transform.SetParent(this.transform, false);
+
+
+        var result = go.GetComponent(type);
 
         if (result == null)
         {
