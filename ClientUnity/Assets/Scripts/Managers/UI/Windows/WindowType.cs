@@ -8,6 +8,7 @@ namespace Assets.Scripts.Managers.UI.Windows
     public enum WindowType
     {
         None,
-        Indicators
+        Indicators,
+        DataGrid
     }
 }

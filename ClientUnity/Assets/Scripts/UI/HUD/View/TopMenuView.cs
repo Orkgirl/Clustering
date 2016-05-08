@@ -12,18 +12,32 @@ public class TopMenuView : ViewBase
     [SerializeField]
     private Dropdown _dropdownDataTable;
 
-    private event Action _onLoadButtonEvent;
-    public event Action OnLoadButtonEvent
+    private event Action _loadButtonEvent;
+    public event Action LoadButtonEvent
     {
-        add { _onLoadButtonEvent += value; }
-        remove { _onLoadButtonEvent -= value; }
+        add { _loadButtonEvent += value; }
+        remove { _loadButtonEvent -= value; }
     }
 
-    private event Action<string> _onSelectTableSelect;
-    public event Action<string> OnSelectTableSelect
+    private event Action _dataGridButtonEvent;
+    public event Action DataGridButtonEvent
     {
-        add { _onSelectTableSelect += value; }
-        remove { _onSelectTableSelect -= value; }
+        add { _dataGridButtonEvent += value; }
+        remove { _dataGridButtonEvent -= value; }
+    }
+
+    private event Action _indicatorButtonEvent;
+    public event Action IndicatorButtonEvent
+    {
+        add { _indicatorButtonEvent += value; }
+        remove { _indicatorButtonEvent -= value; }
+    }
+
+    private event Action<string> _selectTableSelect;
+    public event Action<string> SelectTableSelect
+    {
+        add { _selectTableSelect += value; }
+        remove { _selectTableSelect -= value; }
     }
 
     private List<string> _dataList;
@@ -49,20 +63,37 @@ public class TopMenuView : ViewBase
 
     public void ChooseDropdownHendler(string value)
     {
-        if (_onSelectTableSelect != null)
+        if (_selectTableSelect != null)
         {
-            _onSelectTableSelect.Invoke(value);
+            _selectTableSelect.Invoke(value);
         }
     }
 
     public void LoadButtonHendler()
     {
 
-        if (_onLoadButtonEvent != null)
+        if (_loadButtonEvent != null)
         {
-            _onLoadButtonEvent.Invoke();
+            _loadButtonEvent.Invoke();
         }
-        //InitDataGrid(Clustering.GetRaw());
+    }
+
+    public void IndicatorButtonHendler()
+    {
+
+        if (_indicatorButtonEvent != null)
+        {
+            _indicatorButtonEvent.Invoke();
+        }
+    }
+
+    public void DataGridButtonHendler()
+    {
+
+        if (_dataGridButtonEvent != null)
+        {
+            _dataGridButtonEvent.Invoke();
+        }
     }
 
     //public void NormalizeButtonHendler()
@@ -104,7 +135,7 @@ public class TopMenuView : ViewBase
     //    _indicator.Show();
     //}
 
-  
+
 
     //private void InitCluster(StorageMapData storageMapData)
     //{

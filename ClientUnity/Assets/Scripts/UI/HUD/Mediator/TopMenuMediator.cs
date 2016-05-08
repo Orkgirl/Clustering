@@ -35,12 +35,32 @@ namespace Assets.Scripts.UI.HUD
                 _selectedTable = _dataList[0];
             }
             _view.SetTableSelect(_dataList);
+            
+            _view.SelectTableSelect += ViewSelectTableSelect;
 
-            _view.OnLoadButtonEvent += OnLoadButtonEvent;
-            _view.OnSelectTableSelect += ViewOnOnSelectTableSelect;
+            _view.LoadButtonEvent += LoadButtonHendler;
+            _view.DataGridButtonEvent += DataGridButtonHendler;
+            _view.IndicatorButtonEvent += IndicatorButtonHendler;
         }
 
-        private void ViewOnOnSelectTableSelect(string value)
+        private void IndicatorButtonHendler()
+        {
+            _windowsManager.Open(WindowType.Indicators);
+        }
+
+        private void DataGridButtonHendler()
+        {
+            _windowsManager.Open(WindowType.DataGrid);
+        }
+
+        private void LoadButtonHendler()
+        {
+            //_resourcesManager.LoadData(_selectedTable);
+            //InitDataGrid(Clustering.GetRaw());
+            //_windowsManager.Open(WindowType.Indicators);
+        }
+
+        private void ViewSelectTableSelect(string value)
         {
             string tableName;
             if (_resourcesManager.TableNames.TryGetValue(value, out tableName))
@@ -51,15 +71,10 @@ namespace Assets.Scripts.UI.HUD
 
         public override void UnMediate()
         {
-            _view.OnLoadButtonEvent -= OnLoadButtonEvent;
+            _view.LoadButtonEvent -= LoadButtonHendler;
         }
 
-        private void OnLoadButtonEvent()
-        {
-            //_resourcesManager.LoadData(_selectedTable);
-
-            _windowsManager.Open(WindowType.Indicators);
-        }
+        
 
         public override ViewBase View
         {

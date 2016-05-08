@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Entity;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI;
 using UnityEngine.UI;
 
 public class Analyze : UIItem
@@ -17,7 +18,7 @@ public class Analyze : UIItem
 
     [SerializeField] private Dropdown _clusterCountDropdown;
 
-    [SerializeField] private DataGrid _dataGrid;
+    [SerializeField] private DataGridView _dataGrid;
 
     [SerializeField]
     public InputField _outputClustersCount;

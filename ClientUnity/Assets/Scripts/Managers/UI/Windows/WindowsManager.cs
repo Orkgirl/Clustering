@@ -30,6 +30,7 @@ namespace Assets.Scripts.Managers
             _dictionary = new Dictionary<WindowType, Func<UIItem, MediatorBase<ViewBase>>>();
 
             _dictionary.Add(WindowType.Indicators, _mediatorViewMap.Get<IndicatorMediator>);
+            _dictionary.Add(WindowType.DataGrid, _mediatorViewMap.Get<DataGridMediator>);
         }
 
         public void Open(WindowType window)

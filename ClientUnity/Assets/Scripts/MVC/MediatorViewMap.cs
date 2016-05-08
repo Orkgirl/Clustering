@@ -36,6 +36,7 @@ namespace Assets.Scripts.MVC
             Map<TopMenuMediator, TopMenuView>("Prefabs/UI/HUD/TopMenuView");
 
             Map<IndicatorMediator, IndicatorView>("Prefabs/UI/Windows/Indicator/Indicator");
+            Map<DataGridMediator, DataGridView>("Prefabs/UI/Windows/DataGrid/DataGridView");
         }
 
         private void Map<TMediator, TView>(string value) where TMediator : MediatorBase<ViewBase> where TView : ViewBase
