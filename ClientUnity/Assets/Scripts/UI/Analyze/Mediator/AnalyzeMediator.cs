@@ -31,8 +31,7 @@ namespace Assets.Scripts.UI
             }
 
             _view.SetClusterCountDropdown(listClusterCount);
-
-            _view.SetClusterColumn(_clasterManager.GetNormalize().ColumnsKeys);
+            
             _view.SetClusterRow(_clasterManager.GetNormalize().RowsKeys);
 
             _view.InitDataGrid(_clasterManager.GetClasters(_clusterCount));

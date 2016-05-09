@@ -16,8 +16,6 @@ public class AnalyzeView : ViewBase
 
     [SerializeField] private UIItem _rowTogglePanel;
 
-    [SerializeField] private UIItem _columnTogglePanel;
-
     [SerializeField] private Dropdown _clusterCountDropdown;
 
     [SerializeField] private DataGridView _dataGrid;
@@ -49,19 +47,6 @@ public class AnalyzeView : ViewBase
     {
         _clusterCountDropdown.ClearOptions();
         _clusterCountDropdown.AddOptions(data);
-    }
-
-    public void SetClusterColumn(List<string> data)
-    {
-        foreach (var columnsKey in data)
-        {
-            var columnToggle = _columnTogglePanel.AddChild<Toggle>(_togglePrefab);
-
-            columnToggle.GetComponentInChildren<Text>().text = columnsKey;
-
-            columnToggle.onValueChanged.AddListener(OnToggle);
-            _columnToggleList.Add(columnsKey, columnToggle);
-        }
     }
 
     public void SetClusterRow(List<string> data)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Assets.Scripts.Entity;
+using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
@@ -57,9 +58,8 @@ namespace Assets.Scripts.Managers
         public List<ClusterUnit> GetClasters(int clustersCount)
         {
             var clasters = new List<ClusterUnit>();
-
-            var columnsKeys = _normalizeCluster.ColumnsKeys;
-            foreach (var key in columnsKeys)
+            
+            foreach (var key in Indicators)
             {
                 List<ClusterDataItem> columns = _normalizeCluster.ColumnsToList(key);
 
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Managers
                 int columnsInCluster = columnsCount / clustersCount;
 
                 int columnsInClusterCount = 0;
-                int currentClaster = 0;
+                int currentClaster = 1;
 
                 columns.Sort((x, y) => x.Value.CompareTo(y.Value));
 
@@ -86,26 +86,53 @@ namespace Assets.Scripts.Managers
                     ++columnsInClusterCount;
 
                     columns[i].Cluster = currentClaster;
-                    _normalizeCluster.Update(columns[i]);
+                    //_normalizeCluster.Update(columns[i]);
                 }
             }
 
-            var rowKeys = _normalizeCluster.RowsKeys;
+            List<string> rowKeys = _normalizeCluster.RowsKeys;
+            List<ClusterDataItem> rows;
+            int currentCounter = 0;
+            int biggestCounter = 0;
+            int frequentClaster = 0;
+
             foreach (var key in rowKeys)
             {
-                List<ClusterDataItem> rows = _normalizeCluster.RowsToList(key);
-
-
-                int currentRowClasterSum = 0;
+                rows = _normalizeCluster.RowsToList(key);
 
                 for (var i = 0; i < rows.Count; i++)
                 {
-                    currentRowClasterSum += rows[i].Cluster;
+                    for (var j = 0; j < rows.Count; j++)
+                    {
+                        if (rows[i].Cluster == rows[j].Cluster)
+                        {
+                            currentCounter++;
+                        }
+                    }
+                    if (currentCounter > biggestCounter)
+                    {
+                        biggestCounter = currentCounter;
+                        frequentClaster = rows[i].Cluster;
+                    }
+                    currentCounter = 0;
+                }
+                //frequentClaster = rows[0].Cluster;
+                var line = new StringBuilder();
+                line.Append(frequentClaster.ToString("00"));
+                line.Append(" - ");
+                for (var i = 0; i < rows.Count; i++)
+                {
+                    line.Append(rows[i].Cluster.ToString("00"));
+                    line.Append(" ");
                 }
 
-                var cluster = currentRowClasterSum / clustersCount;
-                clasters.Add(new ClusterUnit() { Row = key, Cluster = cluster });
+                Debug.Log(line);
 
+                clasters.Add(new ClusterUnit() { Row = key, Cluster = frequentClaster});
+
+                biggestCounter = 0;
+                currentCounter = 0;
+                frequentClaster = 0;
             }
 
             return clasters;
