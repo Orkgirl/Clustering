@@ -29,8 +29,13 @@ namespace Assets.Scripts.Managers
         {
             _dictionary = new Dictionary<WindowType, Func<UIItem, MediatorBase<ViewBase>>>();
 
-            _dictionary.Add(WindowType.Indicators, _mediatorViewMap.Get<IndicatorMediator>);
+            _dictionary.Add(WindowType.Indicator, _mediatorViewMap.Get<IndicatorMediator>);
             _dictionary.Add(WindowType.DataGrid, _mediatorViewMap.Get<DataGridMediator>);
+            _dictionary.Add(WindowType.Analize, _mediatorViewMap.Get<AnalyzeMediator>);
+            _dictionary.Add(WindowType.Map, _mediatorViewMap.Get<MapMediator>);
+            _dictionary.Add(WindowType.Start, _mediatorViewMap.Get<StartMediator>);
+
+            Open(WindowType.Start);
         }
 
         public void Open(WindowType window)

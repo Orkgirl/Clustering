@@ -30,6 +30,27 @@ public class TopMenuView : ViewBase
         remove { _indicatorButtonEvent -= value; }
     }
 
+    private event Action _analizeButtonEvent;
+    public event Action AnalizeButtonEvent
+    {
+        add { _analizeButtonEvent += value; }
+        remove { _analizeButtonEvent -= value; }
+    }
+
+    private event Action _mapButtonEvent;
+    public event Action MapButtonEvent
+    {
+        add { _mapButtonEvent += value; }
+        remove { _mapButtonEvent -= value; }
+    }
+
+    private event Action _startButtonEvent;
+    public event Action StartButtonEvent
+    {
+        add { _startButtonEvent += value; }
+        remove { _startButtonEvent -= value; }
+    }
+
     private event Action<string> _selectTableSelect;
     public event Action<string> SelectTableSelect
     {
@@ -91,85 +112,19 @@ public class TopMenuView : ViewBase
         }
     }
 
-    //public void NormalizeButtonHendler()
-    //{
-    //    _analyze.Hide();
-    //    _base.Hide();
-    //    _map.Hide();
-    //    _dataGrid.Show();
-    //    _indicator.Hide();
+    public void AnalizeButtonHendler()
+    {
+        if (_analizeButtonEvent != null)
+        {
+            _analizeButtonEvent.Invoke();
+        }
+    }
 
-    //    //InitDataGrid(Clustering.GetNormalize());
-    //}
-
-    //public void ShowMapButtonHendler()
-    //{
-    //    _analyze.Hide();
-    //    _base.Hide();
-    //    _dataGrid.Hide();
-    //    _map.Show();
-    //    _indicator.Hide();
-    //}
-
-
-    //public void AnalyzeButtonHendler()
-    //{
-    //    _base.Hide();
-    //    _dataGrid.Hide();
-    //    _map.Hide();
-    //    _analyze.Show();
-    //    _indicator.Hide();
-    //}
-
-    //public void IndicatorSelectButtonHendler()
-    //{
-    //    _analyze.Hide();
-    //    _base.Hide();
-    //    _map.Hide();
-    //    _dataGrid.Hide();
-    //    _indicator.Show();
-    //}
-
-
-
-    //private void InitCluster(StorageMapData storageMapData)
-    //{
-    //    var result = new ClusterMap ();
-
-    //    foreach (var location in storageMapData.map)
-    //    {
-    //        foreach (var storagelocationDataKeyValue in location.data)
-    //        {
-    //            result.Add(new ClusterDataItem() {Row = location.name, Column = storagelocationDataKeyValue.key, Id = location.id, Value = storagelocationDataKeyValue .value});
-    //        }
-    //    }
-
-    //    Clustering.Init(result);
-    //}
-
-    //private void InitDataGrid(ClusterMap clusterMap)
-    //{
-    //    var header = new List<string>() {"Name:"};
-
-    //    header.AddRange(Clustering.Indicators);
-
-    //    Dictionary<string, List<string>> stringData = new Dictionary<string, List<string>>();
-
-    //    foreach (var rowsKey in clusterMap.RowsKeys)
-    //    {
-    //        var stringList = new List<string>() {rowsKey};
-    //        foreach (var clusterDataItem in clusterMap.RowsToList(rowsKey))
-    //        {
-    //            if (Clustering.Indicators.Contains(clusterDataItem.Column))
-    //            {
-    //                stringList.Add(clusterDataItem.Value.ToString());
-    //            }
-    //        }
-
-    //        stringData.Add(rowsKey, stringList);
-    //    }
-
-    //    _dataGrid.Init(header, stringData);
-
-    //}
+    public void MapButtonHendler()
+    {
+        if (_mapButtonEvent != null)
+        {
+            _mapButtonEvent.Invoke();
+        }
+    }
 }

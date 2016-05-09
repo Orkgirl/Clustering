@@ -21,7 +21,7 @@ public class DataGridContent : UIItem
     [SerializeField]
     private Vector2 _itemOffset;
 
-    public void Init(Dictionary<string, List<string>> data)
+    public void SetData(Dictionary<string, List<string>> data)
     {
         if (_dataGridLines != null && _dataGridLines.Values.Count > 0)
         {
@@ -38,7 +38,7 @@ public class DataGridContent : UIItem
             List<string> value;
             if (!data.TryGetValue(key, out value))
             {
-                throw new Exception("DataGridContent Init: invalid key or value " + key + " : " + value);
+                throw new Exception("DataGridContent SetData: invalid key or value " + key + " : " + value);
             }
 
             var dataGridLine = AddChild<DataGridLine>(_line);

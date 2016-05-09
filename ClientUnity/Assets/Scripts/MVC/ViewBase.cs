@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.MVC
 {
-    public abstract class ViewBase : MonoBehaviour
+    public abstract class ViewBase : UIItem
     {
     }
 }

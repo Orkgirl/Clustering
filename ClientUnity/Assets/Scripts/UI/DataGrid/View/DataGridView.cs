@@ -12,10 +12,10 @@ namespace Assets.Scripts.UI
 
         [SerializeField] private DataGridContent _content;
 
-        public void Init(List<string> header, Dictionary<string, List<string>> data)
+        public void SetData(List<string> header, Dictionary<string, List<string>> data)
         {
-            _content.Init(data);
-            _header.Init(header);
+            _content.SetData(data);
+            _header.SetData(header);
         }
     }
 }

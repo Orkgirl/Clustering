@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine.UI;
 
 
-[CustomEditor(typeof(Map))]
+[CustomEditor(typeof(MapView))]
 public class MapEditor : Editor {
 
     private Vector2 _scroll = Vector2.zero;
@@ -13,7 +13,7 @@ public class MapEditor : Editor {
     {
         DrawDefaultInspector();
 
-        Map map = (Map)target;
+        MapView map = (MapView)target;
 
         GUILayout.Label("Map");
 

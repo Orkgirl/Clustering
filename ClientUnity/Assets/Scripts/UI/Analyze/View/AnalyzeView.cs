@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Entity;
 using Assets.Scripts.Managers;
+using Assets.Scripts.MVC;
 using Assets.Scripts.UI;
 using UnityEngine.UI;
 
-public class Analyze : UIItem
+public class AnalyzeView : ViewBase
 {
     private ClasterManager _clasterManager;
 
@@ -150,7 +151,7 @@ public class Analyze : UIItem
             stringData.Add(clusrerUnit.Row, stringList);
         }
 
-        _dataGrid.Init(header, stringData);
+        _dataGrid.SetData(header, stringData);
 
     }
 

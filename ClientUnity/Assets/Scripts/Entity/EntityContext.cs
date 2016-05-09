@@ -32,6 +32,7 @@ namespace Assets.Scripts.Entity
             _dictionary.Add(typeof (HUDManager), new HUDManager());
             _dictionary.Add(typeof(MediatorViewMap), new MediatorViewMap());
             _dictionary.Add(typeof(ResourcesManager), new ResourcesManager());
+            _dictionary.Add(typeof(ClasterManager), new ClasterManager());
 
             foreach (var entity in _dictionary.Values)
             {

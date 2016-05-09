@@ -26,8 +26,18 @@ namespace Assets.Scripts.Managers
             
         }
 
-        public void Init(ClusterMap mapData)
+        public void ParseData(StorageMapData storageMapData)
         {
+            ClusterMap mapData = new ClusterMap();
+
+            foreach (var location in storageMapData.map)
+            {
+                foreach (var storagelocationDataKeyValue in location.data)
+                {
+                    mapData.Add(new ClusterDataItem() { Row = location.name, Column = storagelocationDataKeyValue.key, Id = location.id, Value = storagelocationDataKeyValue.value });
+                }
+            }
+
             if (mapData != null)
             {
                 _origCluster = mapData;
@@ -100,6 +110,8 @@ namespace Assets.Scripts.Managers
 
             return clasters;
         }
+
+      
 
         private ClusterMap Normolize(ClusterMap orig)
         {

@@ -17,7 +17,7 @@ public class DataGridHeader : UIItem
 
     private List<string> _data;
 
-    public void Init(List<string> data)
+    public void SetData(List<string> data)
     {
         if (_dataGridColumns != null && _dataGridColumns.Count > 0)
         {

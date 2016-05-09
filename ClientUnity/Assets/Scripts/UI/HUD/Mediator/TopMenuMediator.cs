@@ -13,9 +13,9 @@ namespace Assets.Scripts.UI.HUD
     {
         private TopMenuView _view;
 
-
         private WindowsManager _windowsManager;
         private ResourcesManager _resourcesManager;
+        private ClasterManager _clasterManager;
 
 
         private List<string> _dataList;
@@ -28,11 +28,12 @@ namespace Assets.Scripts.UI.HUD
 
             _windowsManager = EntityContext.Get<WindowsManager>();
             _resourcesManager = EntityContext.Get<ResourcesManager>();
+            _clasterManager = EntityContext.Get<ClasterManager>();
 
             _dataList = _resourcesManager.TableNames.Keys.ToList();
             if (_dataList.Count > 0)
             {
-                _selectedTable = _dataList[0];
+                ViewSelectTableSelect(_dataList[0]);
             }
             _view.SetTableSelect(_dataList);
             
@@ -41,11 +42,13 @@ namespace Assets.Scripts.UI.HUD
             _view.LoadButtonEvent += LoadButtonHendler;
             _view.DataGridButtonEvent += DataGridButtonHendler;
             _view.IndicatorButtonEvent += IndicatorButtonHendler;
+            _view.AnalizeButtonEvent += AnalizeButtonHendler;
+            _view.MapButtonEvent += MapButtonHendler;
         }
 
         private void IndicatorButtonHendler()
         {
-            _windowsManager.Open(WindowType.Indicators);
+            _windowsManager.Open(WindowType.Indicator);
         }
 
         private void DataGridButtonHendler()
@@ -53,28 +56,44 @@ namespace Assets.Scripts.UI.HUD
             _windowsManager.Open(WindowType.DataGrid);
         }
 
+        private void MapButtonHendler()
+        {
+            _windowsManager.Open(WindowType.Map);
+        }
+
+        private void AnalizeButtonHendler()
+        {
+            _windowsManager.Open(WindowType.Analize);
+        }
+
         private void LoadButtonHendler()
         {
-            //_resourcesManager.LoadData(_selectedTable);
-            //InitDataGrid(Clustering.GetRaw());
+            _resourcesManager.LoadData(_selectedTable);
+            _clasterManager.ParseData(_resourcesManager.StorageMapData);
+            _windowsManager.Open(WindowType.DataGrid);
             //_windowsManager.Open(WindowType.Indicators);
         }
 
         private void ViewSelectTableSelect(string value)
         {
+            
             string tableName;
             if (_resourcesManager.TableNames.TryGetValue(value, out tableName))
             {
-                _resourcesManager.LoadData(tableName);
+                _selectedTable = tableName;
             }
         }
 
         public override void UnMediate()
         {
-            _view.LoadButtonEvent -= LoadButtonHendler;
-        }
+            _view.SelectTableSelect -= ViewSelectTableSelect;
 
-        
+            _view.LoadButtonEvent -= LoadButtonHendler;
+            _view.DataGridButtonEvent -= DataGridButtonHendler;
+            _view.IndicatorButtonEvent -= IndicatorButtonHendler;
+            _view.AnalizeButtonEvent -= AnalizeButtonHendler;
+            _view.MapButtonEvent -= MapButtonHendler;
+        }
 
         public override ViewBase View
         {
