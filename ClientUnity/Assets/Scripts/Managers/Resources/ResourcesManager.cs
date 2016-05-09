@@ -31,11 +31,24 @@ namespace Assets.Scripts.Managers
         public StoragelocationData[] map;
     }
 
+    [Serializable]
+    public class ConfigTablesData
+    {
+        public ConfigTibleItemData[] tables;
+    }
+
+    [Serializable]
+    public class ConfigTibleItemData
+    {
+        public string Key;
+        public string Value;
+    }
+
     public class ResourcesManager : IEntity
     {
         public void Install()
         {
-            
+            LoadConfig();
         }
 
         public void Initialaze()
@@ -43,10 +56,10 @@ namespace Assets.Scripts.Managers
 
         }
 
-        public Dictionary<string, string> TableNames = new Dictionary<string, string>()
-        {
-            {"2012 - 2013", "Data2"},
-        };
+        private Dictionary<string, string> _configTable = new Dictionary<string, string>();
+        //{
+        //    {"2012 - 2013", "Data2"},
+        //};
 
         public T LoadView<T>(string value) where T : ViewBase
         {
@@ -61,6 +74,19 @@ namespace Assets.Scripts.Managers
         }
 
         public StorageMapData StorageMapData;
+
+        public void LoadConfig()
+        {
+            var textAsset = Resources.Load<TextAsset>("Config");
+
+            var configData = JsonUtility.FromJson<ConfigTablesData>(textAsset.text);
+
+            foreach (var configItemData in configData.tables)
+            {
+                _configTable.Add(configItemData.Key, configItemData.Value);
+            }
+        }
+
         public StorageMapData LoadData(string name)
         {
             var textAsset = Resources.Load<TextAsset>(name);
@@ -68,6 +94,22 @@ namespace Assets.Scripts.Managers
             StorageMapData = JsonUtility.FromJson<StorageMapData>(textAsset.text);
 
             return StorageMapData;
+        }
+
+        public string GetTable(string value)
+        {
+            string result = String.Empty;
+            if (_configTable.TryGetValue(value, out result))
+            {
+                return result;
+            }
+
+            return result;
+        }
+
+        public List<string> GetAllTables()
+        {
+            return _configTable.Keys.ToList();
         }
     }
 }

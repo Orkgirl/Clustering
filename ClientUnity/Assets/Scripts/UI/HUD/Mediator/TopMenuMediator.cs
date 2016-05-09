@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI.HUD
             _resourcesManager = EntityContext.Get<ResourcesManager>();
             _clasterManager = EntityContext.Get<ClasterManager>();
 
-            _dataList = _resourcesManager.TableNames.Keys.ToList();
+            _dataList = _resourcesManager.GetAllTables();
             if (_dataList.Count > 0)
             {
                 ViewSelectTableSelect(_dataList[0]);
@@ -76,12 +76,7 @@ namespace Assets.Scripts.UI.HUD
 
         private void ViewSelectTableSelect(string value)
         {
-            
-            string tableName;
-            if (_resourcesManager.TableNames.TryGetValue(value, out tableName))
-            {
-                _selectedTable = tableName;
-            }
+            _selectedTable = _resourcesManager.GetTable(value);
         }
 
         public override void UnMediate()
