@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI
             _view.ShowOnMapColumnEvent += ShowOnMapColumnHendler;
             _view.UpdateButtonEvent += UpdateButtonHendler;
 
-            _view.SetMapColumn(_clasterManager.GetRaw().ColumnsKeys.ToList());
+            _view.SetMapColumn(_clasterManager.Indicators);
 
             var listClusterCount = new List<string>();
             for (var i = 2; i < 27; i++)

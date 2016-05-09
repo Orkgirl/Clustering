@@ -31,7 +31,7 @@ GameObject:
   - 114: {fileID: 11483672}
   - 114: {fileID: 11475742}
   m_Layer: 5
-  m_Name: IndicatorItem
+  m_Name: IndicatorItemView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc2f8827a4957c478a406f8d5f15be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _idTextLabel: {fileID: 11413954}
 --- !u!114 &11483672
 MonoBehaviour:
   m_ObjectHideFlags: 1
