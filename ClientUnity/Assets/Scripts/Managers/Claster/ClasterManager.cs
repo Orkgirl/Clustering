@@ -117,16 +117,16 @@ namespace Assets.Scripts.Managers
                     currentCounter = 0;
                 }
                 //frequentClaster = rows[0].Cluster;
-                var line = new StringBuilder();
-                line.Append(frequentClaster.ToString("00"));
-                line.Append(" - ");
-                for (var i = 0; i < rows.Count; i++)
-                {
-                    line.Append(rows[i].Cluster.ToString("00"));
-                    line.Append(" ");
-                }
+                //var line = new StringBuilder();
+                //line.Append(frequentClaster.ToString("00"));
+                //line.Append(" - ");
+                //for (var i = 0; i < rows.Count; i++)
+                //{
+                //    line.Append(rows[i].Cluster.ToString("00"));
+                //    line.Append(" ");
+                //}
 
-                Debug.Log(line);
+                //Debug.Log(line);
 
                 clasters.Add(new ClusterUnit() { Row = key, Cluster = frequentClaster});
 
