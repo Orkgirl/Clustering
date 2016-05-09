@@ -4,15 +4,15 @@ using UnityEngine;
 public class UIItem : MonoBehaviour
 {
 
-    public virtual void Hide()
-    {
-        this.gameObject.SetActive(false);
-    }
+    //public virtual void Hide()
+    //{
+    //    this.gameObject.SetActive(false);
+    //}
 
-    public virtual void Show()
-    {
-        this.gameObject.SetActive(true);
-    }
+    //public virtual void Show()
+    //{
+    //    this.gameObject.SetActive(true);
+    //}
    
     public virtual T AddChild<T>(GameObject prefab) where T : MonoBehaviour
     {

@@ -45,11 +45,6 @@ public class MapView : ViewBase
         remove { _updateButtonEvent -= value; }
     }
 
-    public override void Show()
-    {
-        base.Show();
-    }
-
     public void SetColor(string key, Color color)
     {
         foreach (var mapImageData in MapList)

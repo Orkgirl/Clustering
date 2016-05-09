@@ -37,6 +37,8 @@ namespace Assets.Scripts.UI
             }
            
             _view.SetMapClusterCount(listClusterCount);
+
+            UpdateButtonHendler();
         }
 
         private void UpdateButtonHendler()

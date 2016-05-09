@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Entity;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 public class AnalyzeView : ViewBase
 {
-    private ClasterManager _clasterManager;
+   
 
     [SerializeField] private GameObject _togglePrefab;
 
@@ -28,17 +29,31 @@ public class AnalyzeView : ViewBase
     private Dictionary<string, Toggle> _rowToggleList;
     private Dictionary<string, Toggle> _columnToggleList;
 
-    private int _clusterCount = 2;
+   
 
-    public override void Show()
+    private event Action<int> _setClasterCountEvent;
+    public event Action<int> SetClasterCountEvent
     {
-        base.Show();
+        add { _setClasterCountEvent += value; }
+        remove { _setClasterCountEvent -= value; }
+    }
 
-        _clasterManager = EntityContext.Get<ClasterManager>();
+    private event Action _updateDataEvent;
+    public event Action UpdateDataEvent
+    {
+        add { _updateDataEvent += value; }
+        remove { _updateDataEvent -= value; }
+    }
 
-        Clear();
+    public void SetClusterCountDropdown(List<string> data)
+    {
+        _clusterCountDropdown.ClearOptions();
+        _clusterCountDropdown.AddOptions(data);
+    }
 
-        foreach (var columnsKey in _clasterManager.GetNormalize().ColumnsKeys)
+    public void SetClusterColumn(List<string> data)
+    {
+        foreach (var columnsKey in data)
         {
             var columnToggle = _columnTogglePanel.AddChild<Toggle>(_togglePrefab);
 
@@ -47,8 +62,11 @@ public class AnalyzeView : ViewBase
             columnToggle.onValueChanged.AddListener(OnToggle);
             _columnToggleList.Add(columnsKey, columnToggle);
         }
+    }
 
-        foreach (var rowKey in _clasterManager.GetNormalize().RowsKeys)
+    public void SetClusterRow(List<string> data)
+    {
+        foreach (var rowKey in data)
         {
             var rowToggle = _rowTogglePanel.AddChild<Toggle>(_togglePrefab);
 
@@ -57,15 +75,6 @@ public class AnalyzeView : ViewBase
             rowToggle.onValueChanged.AddListener(OnToggle);
             _rowToggleList.Add(rowKey, rowToggle);
         }
-
-        
-        var listClusterCount = new List<string>();
-        for (var i = 2; i < 27; i++)
-        {
-            listClusterCount.Add(i.ToString());
-        }
-        _clusterCountDropdown.ClearOptions();
-        _clusterCountDropdown.AddOptions(listClusterCount);
 
     }
 
@@ -91,12 +100,18 @@ public class AnalyzeView : ViewBase
 
     public void SetClusterCount(int value)
     {
-        _clusterCount = value + 2;
+        if (_setClasterCountEvent != null)
+        {
+            _setClasterCountEvent.Invoke(value);
+        }
     }
 
     public void UpdateData()
     {
-        InitDataGrid();
+        if (_updateDataEvent != null)
+        {
+            _updateDataEvent.Invoke();
+        }
     }
 
 
@@ -123,11 +138,8 @@ public class AnalyzeView : ViewBase
         _outputClustersCount.text = result.ToString();
     }
 
-    private void InitDataGrid()
+    public void InitDataGrid(List<ClusterUnit>clasrerUnits)
     {
-
-        var clasrerUnits = _clasterManager.GetClasters(_clusterCount);
-
         var header = new List<string>() { "Name:", "Cluster:" };
 
         Dictionary<string, List<string>> stringData = new Dictionary<string, List<string>>();
@@ -155,7 +167,7 @@ public class AnalyzeView : ViewBase
 
     }
 
-    private void Clear()
+    public void Clear()
     {
         if (_rowToggleList != null && _rowToggleList.Count > 0)
         {
@@ -176,4 +188,5 @@ public class AnalyzeView : ViewBase
         _columnToggleList = new Dictionary<string, Toggle>();
 
     }
+
 }

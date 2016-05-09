@@ -43,8 +43,8 @@ namespace Assets.Scripts.Managers
                 _origCluster = mapData;
                 _normalizeCluster = Normolize(_origCluster);
 
-                Indicators = _origCluster.RowsKeys;
-                IndicatorsAll = _origCluster.RowsKeys;
+                Indicators = _origCluster.ColumnsKeys;
+                IndicatorsAll = _origCluster.ColumnsKeys;
 
 
                 if (_origCluster != null && _normalizeCluster != null)
