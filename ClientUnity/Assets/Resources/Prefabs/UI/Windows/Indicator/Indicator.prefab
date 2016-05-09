@@ -151,7 +151,7 @@ GameObject:
   - 222: {fileID: 22261234}
   - 114: {fileID: 11491626}
   m_Layer: 5
-  m_Name: Indicators
+  m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

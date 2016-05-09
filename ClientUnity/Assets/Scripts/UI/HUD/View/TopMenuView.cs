@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Managers;
 using Assets.Scripts.MVC;
 using UnityEngine.UI;
 using System;
@@ -41,7 +38,6 @@ public class TopMenuView : ViewBase
     }
 
     private List<string> _dataList;
-
     public void SetTableSelect(List<string> value)
     {
         _dataList = value;
@@ -89,7 +85,6 @@ public class TopMenuView : ViewBase
 
     public void DataGridButtonHendler()
     {
-
         if (_dataGridButtonEvent != null)
         {
             _dataGridButtonEvent.Invoke();
@@ -177,6 +172,4 @@ public class TopMenuView : ViewBase
     //    _dataGrid.Init(header, stringData);
 
     //}
-
-
 }

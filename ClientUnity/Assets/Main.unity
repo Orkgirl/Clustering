@@ -227,6 +227,7 @@ GameObject:
   - 224: {fileID: 742505693}
   - 222: {fileID: 742505695}
   - 114: {fileID: 742505694}
+  - 114: {fileID: 742505696}
   m_Layer: 5
   m_Name: WindowsLayout
   m_TagString: Untagged
@@ -284,6 +285,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 742505692}
+--- !u!114 &742505696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 742505692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98577ff6a5462d40810f8b053560ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1121735351
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +306,7 @@ GameObject:
   - 224: {fileID: 1121735352}
   - 222: {fileID: 1121735354}
   - 114: {fileID: 1121735353}
+  - 114: {fileID: 1121735355}
   m_Layer: 5
   m_Name: HUDLayout
   m_TagString: Untagged
@@ -351,6 +364,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1121735351}
+--- !u!114 &1121735355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1121735351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98577ff6a5462d40810f8b053560ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1962939279
 GameObject:
   m_ObjectHideFlags: 0
