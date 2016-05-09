@@ -65,11 +65,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 118570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57170e2be82572d4cade1e4687a8819e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b1312e740f07514387e0c19926d4ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _column: {fileID: 0}
-  _item: {fileID: 0}
+  _column: {fileID: 191172, guid: dd1d3fd0cfadff64e85afcc14b72c63d, type: 2}
+  _item: {fileID: 104614, guid: e67dffd02a8f81c4a95d116c4eec46d0, type: 2}
   _itemSize: {x: 0, y: 0}
   _itemOffset: {x: 0, y: 0}
 --- !u!222 &22282964

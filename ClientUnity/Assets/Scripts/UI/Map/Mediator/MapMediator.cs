@@ -106,7 +106,9 @@ namespace Assets.Scripts.UI
 
         public override void UnMediate()
         {
-            
+            _view.SetClasterCountEvent += SetClasterCountHendler;
+            _view.ShowOnMapColumnEvent += ShowOnMapColumnHendler;
+            _view.UpdateButtonEvent += UpdateButtonHendler;
         }
 
         public override ViewBase View
