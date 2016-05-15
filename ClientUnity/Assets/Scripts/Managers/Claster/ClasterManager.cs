@@ -102,8 +102,16 @@ namespace Assets.Scripts.Managers
 
                 for (var i = 0; i < rows.Count; i++)
                 {
+                    if(!Indicators.Contains(rows[i].Column))
+                    {
+                        continue;
+                    }
                     for (var j = 0; j < rows.Count; j++)
                     {
+                        if (!Indicators.Contains(rows[j].Column))
+                        {
+                            continue;
+                        }
                         if (rows[i].Cluster == rows[j].Cluster)
                         {
                             currentCounter++;

@@ -56,6 +56,7 @@ namespace Assets.Scripts.UI
                 itemView.ClickEvent -= ItemViewAddClickHendler;
                 Destroy(itemView.gameObject);
             }
+
             _allList.Clear();
 
             foreach (var id in value)
