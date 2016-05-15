@@ -67,23 +67,22 @@ namespace Assets.Scripts.Managers
                 {
                     continue;
                 }
-
-                int columnsCount = columns.Count;
-                int columnsInCluster = columnsCount / clustersCount;
-
-                int columnsInClusterCount = 0;
+                
                 int currentClaster = 1;
 
                 columns.Sort((x, y) => x.Value.CompareTo(y.Value));
 
-                for (var i = 0; i < columnsCount; i++)
+                for (var i = 0; i < columns.Count; i++)
                 {
-                    if (columnsInClusterCount > columnsInCluster)
+                    if (currentClaster < clustersCount)
                     {
-                        columnsInClusterCount = 0;
                         ++currentClaster;
                     }
-                    ++columnsInClusterCount;
+                    else
+                    {
+                        currentClaster = 1;
+                    }
+                   
 
                     columns[i].Cluster = currentClaster;
                     //_normalizeCluster.Update(columns[i]);
