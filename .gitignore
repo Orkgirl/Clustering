@@ -7,3 +7,12 @@ ClientUnity/Clustering.sln
 ClientUnity/ClientUnity.CSharp.Editor.csproj
 ClientUnity/ClientUnity.CSharp.csproj
 ClientUnity/ClientUnity.sln
+#Diploma_Fake
+Diploma_Fake/Temp
+Diploma_Fake/Library
+Diploma_Fake/Clustering.CSharp.Editor.csproj
+Diploma_Fake/Clustering.CSharp.csproj
+Diploma_Fake/Clustering.sln
+Diploma_Fake/ClientUnity.CSharp.Editor.csproj
+Diploma_Fake/ClientUnity.CSharp.csproj
+Diploma_Fake/ClientUnity.sln

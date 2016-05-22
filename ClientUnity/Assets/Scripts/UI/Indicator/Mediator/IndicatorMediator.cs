@@ -12,7 +12,9 @@ namespace Assets.Scripts.UI
     {
         private IndicatorView _view;
 
-        private ClasterManager _clasterManager;
+        private ClasterManager _clasterManager;      
+
+        
 
         public override void Mediate(ViewBase view)
         {
@@ -25,6 +27,9 @@ namespace Assets.Scripts.UI
 
             _view.SetAllIndicators(_clasterManager.IndicatorsAll);
             _view.SetSelectedIndicators(_clasterManager.Indicators);
+
+
+            _view.SetAllRegions(_clasterManager.GetNormalize().RowsKeys);
         }
 
         private void ViewAddClickEvent(string id)
