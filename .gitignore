@@ -8,6 +8,7 @@ ClientUnity/ClientUnity.CSharp.Editor.csproj
 ClientUnity/ClientUnity.CSharp.csproj
 ClientUnity/ClientUnity.sln
 #Diploma_Fake
+Diploma_Fake/bin
 Diploma_Fake/Temp
 Diploma_Fake/Library
 Diploma_Fake/Clustering.CSharp.Editor.csproj
