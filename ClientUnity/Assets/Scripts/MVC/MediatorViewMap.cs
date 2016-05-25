@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Entity;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI;
-using Assets.Scripts.UI.HUD;
-using UnityEngine;
+
 
 namespace Assets.Scripts.MVC
 {
@@ -33,22 +31,21 @@ namespace Assets.Scripts.MVC
             _dictionaryMediatorView = new Dictionary<Type, Type>();
             _dictionaryViewPrefab = new Dictionary<Type, string>();
 
-            Map<TopMenuMediator, TopMenuView>("Prefabs/UI/HUD/TopMenuView");
+            Map<StartMediator, StartView>("Prefabs/UI/Windows/StartView");
+            Map<RegionsIndicatorsMediator, RegionsIndicatorsView>("Prefabs/UI/Windows/RegionsIndicators");
 
-            Map<IndicatorMediator, IndicatorView>("Prefabs/UI/Windows/Indicator/IndicatorView");
-            Map<DataGridMediator, DataGridView>("Prefabs/UI/Windows/DataGrid/DataGridView");
-            Map<AnalyzeMediator, AnalyzeView>("Prefabs/UI/Windows/Analyze/AnalyzeView");
-            Map<MapMediator, MapView>("Prefabs/UI/Windows/Map/MapView");
-            Map<StartMediator, StartView>("Prefabs/UI/Windows/Start/StartView");
+            Map<HeaderMediator, HeaderView>("Prefabs/UI/HUD/Header");
+
+            //Map<TopMenuMediator, TopMenuView>("Prefabs/UI/HUD/TopMenuView");                      
         }
 
-        private void Map<TMediator, TView>(string value) where TMediator : MediatorBase<ViewBase> where TView : ViewBase
+        private void Map<TMediator, TView>(string value) where TMediator : MediatorBase where TView : ViewBase
         {
             _dictionaryMediatorView.Add(typeof (TMediator), typeof (TView));
             _dictionaryViewPrefab.Add(typeof (TView), value);
         }
 
-        public T Get<T>(UIItem layout) where T : MediatorBase<ViewBase>, new()
+        public T Get<T>(UIItem layout) where T : MediatorBase, new()
         {
             T mediator = new T();
 

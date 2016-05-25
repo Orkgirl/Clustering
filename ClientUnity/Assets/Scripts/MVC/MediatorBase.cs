@@ -6,10 +6,10 @@ using Assets.Scripts.Entity;
 
 namespace Assets.Scripts.MVC
 {
-    public abstract class MediatorBase<T> where T : ViewBase
+    public abstract class MediatorBase
     {
-        public abstract void Mediate(T view);
+        public abstract void Mediate(ViewBase view);
         public abstract void UnMediate();
-        public abstract T View { get; }
+        public abstract ViewBase View { get; }
     }
 }

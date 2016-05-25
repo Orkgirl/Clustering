@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Entity;
 using Assets.Scripts.MVC;
-using Assets.Scripts.UI.HUD;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,12 +12,10 @@ namespace Assets.Scripts.Managers
 {
     public class HUDManager : IEntity
     {
-        private MediatorViewMap _mediatorViewMap;
-
         private string _layoutName = "HUDLayout";
         private UIItem _layoutGameObject;
 
-        private TopMenuMediator _topMenu;
+        private MediatorViewMap _mediatorViewMap;
 
         public void Install()
         {
@@ -26,10 +24,20 @@ namespace Assets.Scripts.Managers
 
         public void Initialaze()
         {
-
             _layoutGameObject = GameObject.Find(_layoutName).GetComponent<UIItem>();
+        }
 
-            _topMenu = _mediatorViewMap.Get<TopMenuMediator>(_layoutGameObject);
+        private HeaderMediator _header;
+
+        public void ShowHUD()
+        {
+            _header = _mediatorViewMap.Get<HeaderMediator>(_layoutGameObject);
+        }
+
+        public void HideHUD()
+        {
+            _header.UnMediate();
+            GameObject.Destroy(_header.View.gameObject);
         }
     }
 }

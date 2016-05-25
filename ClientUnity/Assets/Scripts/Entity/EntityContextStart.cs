@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.UI.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,8 @@ namespace Assets.Scripts.Entity
         public void Start()
         {
             EntityContext.Initialize();
+
+            EntityContext.Get<WindowsManager>().Open(WindowType.Start);
         }
 
         void Update()

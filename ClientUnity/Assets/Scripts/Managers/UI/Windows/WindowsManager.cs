@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Entity;
 using Assets.Scripts.Managers.UI.Windows;
 using Assets.Scripts.MVC;
-using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -15,9 +14,9 @@ namespace Assets.Scripts.Managers
 
         private MediatorViewMap _mediatorViewMap;
 
-        private MediatorBase<ViewBase> _currentWindow;
+        private MediatorBase _currentWindow;
 
-        private Dictionary<WindowType, Func<UIItem, MediatorBase<ViewBase>>> _dictionary; 
+        private Dictionary<WindowType, Func<UIItem, MediatorBase>> _dictionary; 
 
         public void Install()
         {
@@ -27,15 +26,13 @@ namespace Assets.Scripts.Managers
 
         public void Initialaze()
         {
-            _dictionary = new Dictionary<WindowType, Func<UIItem, MediatorBase<ViewBase>>>();
+            _dictionary = new Dictionary<WindowType, Func<UIItem, MediatorBase>>();
 
-            _dictionary.Add(WindowType.Indicator, _mediatorViewMap.Get<IndicatorMediator>);
-            _dictionary.Add(WindowType.DataGrid, _mediatorViewMap.Get<DataGridMediator>);
-            _dictionary.Add(WindowType.Analize, _mediatorViewMap.Get<AnalyzeMediator>);
-            _dictionary.Add(WindowType.Map, _mediatorViewMap.Get<MapMediator>);
             _dictionary.Add(WindowType.Start, _mediatorViewMap.Get<StartMediator>);
+            _dictionary.Add(WindowType.RegionsIndicators, _mediatorViewMap.Get<RegionsIndicatorsMediator>);
 
-            Open(WindowType.Start);
+            //_dictionary.Add(WindowType.Indicator, _mediatorViewMap.Get<IndicatorMediator>);
+
         }
 
         public void Open(WindowType window)

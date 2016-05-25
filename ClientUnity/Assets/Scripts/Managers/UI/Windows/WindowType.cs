@@ -7,11 +7,9 @@ namespace Assets.Scripts.Managers.UI.Windows
 {
     public enum WindowType
     {
-        None,
-        Indicator,
-        DataGrid,
-        Analize,
-        Map,
-        Start
+        None,       
+        Start,
+        RegionsIndicators,
+
     }
 }
