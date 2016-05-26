@@ -25,12 +25,30 @@ public class HeaderMediator : MediatorBase
         _view = (HeaderView)view;
         _windowManager = EntityContext.Get<WindowsManager>();
 
-        _view.OnNextButtonEvent += onNextButtonEventHeandler;
+        _view.OnFirstButtonEvent += onFirstButtonEventHeandler;
+        _view.OnSecondButtonEvent += onSecondButtonEventHeandler;
+        _view.OnThirdButtonEvent += onThirdButtonEventHeandler;
+        _view.OnFourthButtonEvent += onFourthButtonEventHeandler;
     }
 
-    private void onNextButtonEventHeandler()
+    private void onFirstButtonEventHeandler()
     {
         _windowManager.Open(WindowType.RegionsIndicators);
+    }
+
+    private void onSecondButtonEventHeandler()
+    {
+        _windowManager.Open(WindowType.SelectedIndicators);
+    }
+
+    private void onThirdButtonEventHeandler()
+    {
+        _windowManager.Open(WindowType.Clustering);
+    }
+
+    private void onFourthButtonEventHeandler()
+    {
+        _windowManager.Open(WindowType.Map);
     }
 
     public override void UnMediate()

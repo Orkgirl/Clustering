@@ -10,6 +10,9 @@ namespace Assets.Scripts.Managers.UI.Windows
         None,       
         Start,
         RegionsIndicators,
+        SelectedIndicators,
+        Clustering,
+        Map,
 
     }
 }

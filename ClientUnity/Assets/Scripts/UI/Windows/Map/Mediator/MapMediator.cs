@@ -2,13 +2,13 @@
 using System.Collections;
 using Assets.Scripts.MVC;
 
-public class RegionsIndicatorsMediator : MediatorBase
+public class MapMediator : MediatorBase
 {
-    private RegionsIndicatorsView _view;
+    private MapView _view;
 
     public override void Mediate(ViewBase view)
     {
-        _view = (RegionsIndicatorsView)view;
+        _view = (MapView)view;
     }
     public override void UnMediate()
     {
