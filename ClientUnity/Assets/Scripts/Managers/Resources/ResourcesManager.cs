@@ -53,7 +53,6 @@ namespace Assets.Scripts.Managers
 
         public void Initialaze()
         {
-
         }
 
         private Dictionary<string, string> _configTable = new Dictionary<string, string>();
