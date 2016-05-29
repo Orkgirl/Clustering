@@ -1,4 +1,8 @@
+#============
 #Unity
+#============
+ClientUnity/.vs
+ClientUnity/bin
 ClientUnity/Temp
 ClientUnity/Library
 ClientUnity/Clustering.CSharp.Editor.csproj
@@ -7,7 +11,10 @@ ClientUnity/Clustering.sln
 ClientUnity/ClientUnity.CSharp.Editor.csproj
 ClientUnity/ClientUnity.CSharp.csproj
 ClientUnity/ClientUnity.sln
+#============
 #Diploma_Fake
+#============
+Diploma_Fake/.vs
 Diploma_Fake/bin
 Diploma_Fake/Temp
 Diploma_Fake/Library
@@ -17,3 +24,9 @@ Diploma_Fake/Clustering.sln
 Diploma_Fake/ClientUnity.CSharp.Editor.csproj
 Diploma_Fake/ClientUnity.CSharp.csproj
 Diploma_Fake/ClientUnity.sln
+#============
+#Server
+#============
+Server/.vs
+Server/ClasteringServer/bin
+Server/ClasteringServer/obj

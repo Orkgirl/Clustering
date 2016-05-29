@@ -1,6 +1,0 @@
-c:\users\eliza\documents\visual studio 2015\Projects\ClasteringServer\ClasteringServer\bin\Debug\ClasteringServer.exe.config
-c:\users\eliza\documents\visual studio 2015\Projects\ClasteringServer\ClasteringServer\bin\Debug\ClasteringServer.exe
-c:\users\eliza\documents\visual studio 2015\Projects\ClasteringServer\ClasteringServer\bin\Debug\ClasteringServer.pdb
-c:\users\eliza\documents\visual studio 2015\Projects\ClasteringServer\ClasteringServer\obj\Debug\ClasteringServer.csprojResolveAssemblyReference.cache
-c:\users\eliza\documents\visual studio 2015\Projects\ClasteringServer\ClasteringServer\obj\Debug\ClasteringServer.exe
-c:\users\eliza\documents\visual studio 2015\Projects\ClasteringServer\ClasteringServer\obj\Debug\ClasteringServer.pdb

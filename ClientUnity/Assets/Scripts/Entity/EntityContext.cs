@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.Net;
 using Assets.Scripts.MVC;
 
 namespace Assets.Scripts.Entity
@@ -33,6 +34,7 @@ namespace Assets.Scripts.Entity
             _dictionary.Add(typeof(MediatorViewMap), new MediatorViewMap());
             _dictionary.Add(typeof(ResourcesManager), new ResourcesManager());
             _dictionary.Add(typeof(ClasterManager), new ClasterManager());
+            _dictionary.Add(typeof(NetManager), new NetManager());
 
             foreach (var entity in _dictionary.Values)
             {
