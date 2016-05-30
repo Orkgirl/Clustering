@@ -46,8 +46,8 @@ namespace Assets.Scripts.Managers.Net
                 // Establish the remote endpoint for the socket.
                 // The name of the 
                 // remote device is "host.contoso.com".
-                IPHostEntry ipHostInfo = Dns.Resolve("localhost");
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPHostEntry ipHostInfo = Dns.GetHostEntry("127.0.0.1");
+                IPAddress ipAddress = ipHostInfo.AddressList[4];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.

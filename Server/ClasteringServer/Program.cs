@@ -52,9 +52,12 @@ namespace ClasteringServer
             // Establish the local endpoint for the socket.
             // The DNS name of the computer
             // running the listener is "host.contoso.com".
-            IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
+            IPHostEntry ipHostInfo = Dns.GetHostEntry("127.0.0.1");
+           
+            IPAddress ipAddress = ipHostInfo.AddressList[4];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+
+            Console.WriteLine(localEndPoint.ToString());
 
             // Create a TCP/IP socket.
             Socket listener = new Socket(AddressFamily.InterNetwork,
