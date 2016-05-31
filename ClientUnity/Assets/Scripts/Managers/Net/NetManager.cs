@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
+using System.Text;
 using Assets.Scripts.Entity;
+using Common.Net;
+using Common.Net.Commands;
+using UnityEngine;
+using Object = System.Object;
 
 namespace Assets.Scripts.Managers.Net
 {
@@ -30,8 +33,10 @@ namespace Assets.Scripts.Managers.Net
         // ManualResetEvent instances signal completion.
         private static ManualResetEvent connectDone =
             new ManualResetEvent(false);
+
         private static ManualResetEvent sendDone =
             new ManualResetEvent(false);
+
         private static ManualResetEvent receiveDone =
             new ManualResetEvent(false);
 
@@ -46,8 +51,21 @@ namespace Assets.Scripts.Managers.Net
                 // Establish the remote endpoint for the socket.
                 // The name of the 
                 // remote device is "host.contoso.com".
-                IPHostEntry ipHostInfo = Dns.GetHostEntry("127.0.0.1");
-                IPAddress ipAddress = ipHostInfo.AddressList[4];
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+                IPAddress ipAddress = null;
+                foreach (var item in ipHostInfo.AddressList)
+                {
+                    if (item.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        ipAddress = item;
+                        break;
+                    }
+                }
+                if (ipAddress == null)
+                {
+                    return;
+                }
+
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.
@@ -60,7 +78,7 @@ namespace Assets.Scripts.Managers.Net
                 connectDone.WaitOne();
 
                 // Send test data to the remote device.
-                Send(client, "This is a test<EOF>");
+                Send(client, new GetRegionCommand());
                 sendDone.WaitOne();
 
                 // Receive the response from the remote device.
@@ -86,7 +104,7 @@ namespace Assets.Scripts.Managers.Net
             try
             {
                 // Retrieve the socket from the state object.
-                Socket client = (Socket)ar.AsyncState;
+                Socket client = (Socket) ar.AsyncState;
 
                 // Complete the connection.
                 client.EndConnect(ar);
@@ -127,7 +145,7 @@ namespace Assets.Scripts.Managers.Net
             {
                 // Retrieve the state object and the client socket 
                 // from the asynchronous state object.
-                StateObject state = (StateObject)ar.AsyncState;
+                StateObject state = (StateObject) ar.AsyncState;
                 Socket client = state.workSocket;
 
                 // Read data from the remote device.
@@ -159,10 +177,10 @@ namespace Assets.Scripts.Managers.Net
             }
         }
 
-        private static void Send(Socket client, String data)
+        private static void Send(Socket client, Object data)
         {
             // Convert the string data to byte data using ASCII encoding.
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            byte[] byteData = SocketParser.Serialize(data);
 
             // Begin sending the data to the remote device.
             client.BeginSend(byteData, 0, byteData.Length, 0,
@@ -174,7 +192,7 @@ namespace Assets.Scripts.Managers.Net
             try
             {
                 // Retrieve the socket from the state object.
-                Socket client = (Socket)ar.AsyncState;
+                Socket client = (Socket) ar.AsyncState;
 
                 // Complete sending the data to the remote device.
                 int bytesSent = client.EndSend(ar);
@@ -188,20 +206,38 @@ namespace Assets.Scripts.Managers.Net
                 Console.WriteLine(e.ToString());
             }
         }
-       
     }
+
+
     public class NetManager : IEntity
     {
         public void Install()
         {
-           
+
         }
 
         public void Initialaze()
         {
-            AsynchronousClient.StartClient();
+            var coroutineExecuterGameObject = new GameObject();
+            coroutineExecuterGameObject.name = "CoroutineExecuter";
+            var coroutineExecuter = coroutineExecuterGameObject.AddComponent<CoroutineExecuterComponent>();
+            coroutineExecuter.ExecuteThread(AsynchronousClient.StartClient);
+            
         }
-    
+    }
+
+    public class CoroutineExecuterComponent : MonoBehaviour
+    {
+        public void ExecuteThread(Action task)
+        {
+            Thread oThread = new Thread(new ThreadStart(task));
+            oThread.Start();
+        }
+
+        public void ExecuteCoroutine(Func<IEnumerator> task)
+        {
+            StartCoroutine(task.Invoke());
+        }
     }
 
 }

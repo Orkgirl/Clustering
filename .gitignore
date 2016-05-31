@@ -28,5 +28,11 @@ Diploma_Fake/ClientUnity.sln
 #Server
 #============
 Server/.vs
-Server/ClasteringServer/bin
-Server/ClasteringServer/obj
+Server/Server/bin
+Server/Server/obj
+Common/.vs
+Common/Common/bin
+Common/Common/obj
+Client/.vs
+Client/Client/bin
+Client/Client/obj
