@@ -71,6 +71,8 @@ public class AsynchronousClient
 
             // Send test data to the remote device.
             Send(client, new GetRegionCommand());
+            Send(client, new GetIndicatorCommand());
+            Send(client, new GetDataCommand("all"));
             sendDone.WaitOne();
 
             // Receive the response from the remote device.
@@ -145,12 +147,19 @@ public class AsynchronousClient
 
             if (bytesRead > 0)
             {
-                // There might be more data, so store the data received so far.
-                state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                CommandBase command;
 
-                // Get the rest of the data.
-                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReceiveCallback), state);
+                if (SocketParser.TryDeserialize(state.buffer, bytesRead, out command))
+                {
+                    Console.WriteLine("[AsynchronousClient][ReceiveCallback] command: " + command.CommandType);
+                }
+                else
+                {
+                    // Not all data received. Get more.
+
+                    client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                        new AsyncCallback(ReceiveCallback), state);
+                }
             }
             else
             {
@@ -169,10 +178,14 @@ public class AsynchronousClient
         }
     }
 
-    private static void Send(Socket client, Object data)
+    private static void Send(Socket client, CommandBase data)
     {
         // Convert the string data to byte data using ASCII encoding.
-        byte[] byteData = SocketParser.Serialize(data);
+        byte[] byteData;
+        if (!SocketParser.TrySerialize(data, out byteData))
+        {
+            return;
+        }
 
         // Begin sending the data to the remote device.
         client.BeginSend(byteData, 0, byteData.Length, 0,

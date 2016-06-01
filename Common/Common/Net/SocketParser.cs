@@ -7,7 +7,7 @@ namespace Common.Net
 {
     public static class SocketParser
     {
-        public static bool TryParse(byte[] buffer, int bytesRead, out CommandBase command)
+        public static bool TryDeserialize(byte[] buffer, int bytesRead, out CommandBase command)
         {
             MemoryStream stream = new MemoryStream(buffer, 0, bytesRead);
 
@@ -28,12 +28,12 @@ namespace Common.Net
             return true;
         }
 
-        public static byte[] Serialize(Object obj)
+        public static bool  TrySerialize(CommandBase command, out byte[] data)
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
             MemoryStream objStream = new MemoryStream();
-            formatter.Serialize(objStream, obj);
+            formatter.Serialize(objStream, command);
             var intSize = sizeof(Int32);
             var size = (int) objStream.Position;
             byte[] sizeb = BitConverter.GetBytes(size);
@@ -42,7 +42,9 @@ namespace Common.Net
             outStream.Write(sizeb, 0, intSize);
             outStream.Write(objStream.ToArray(),0, (int)objStream.Length);
 
-            return outStream.ToArray();
+            data = outStream.ToArray();
+
+            return true;
         }
     }
 }

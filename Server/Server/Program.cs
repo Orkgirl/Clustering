@@ -7,6 +7,8 @@ using System.Threading;
 using Common.Net;
 using Common.Net.Commands;
 using Server;
+using Server.DataBase;
+using Server.Logic;
 
 // State object for reading client data asynchronously
 public class StateObject
@@ -32,6 +34,8 @@ public class AsynchronousSocketListener
 
     public static void StartListening()
     {
+        Console.WriteLine("[AsynchronousSocketListener][StartListening]");
+
         // Data buffer for incoming data.
         byte[] bytes = new Byte[1024];
 
@@ -54,8 +58,8 @@ public class AsynchronousSocketListener
         }
         
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
-        Console.WriteLine("Starting server on: {0}", localEndPoint);
+  
+        Console.WriteLine("[AsynchronousSocketListener][StartListening] Starting server on: {0}", localEndPoint);
 
         // Create a TCP/IP socket.
         Socket listener = new Socket(AddressFamily.InterNetwork,
@@ -111,8 +115,6 @@ public class AsynchronousSocketListener
 
     public static void ReadCallback(IAsyncResult ar)
     {
-        String content = String.Empty;
-
         // Retrieve the state object and the handler socket
         // from the asynchronous state object.
         StateObject state = (StateObject)ar.AsyncState;
@@ -125,14 +127,9 @@ public class AsynchronousSocketListener
         {
             CommandBase command;
 
-            if (SocketParser.TryParse(state.buffer, bytesRead, out command))
+            if (SocketParser.TryDeserialize(state.buffer, bytesRead, out command))
             {
-                switch (command.CommandType)
-                {
-                        case CommandType.GetRegion:
-                            Send(handler, new SetRegionCommand(new Dictionary<int, string>() {{1,"Kiev"}}));
-                        break;
-                }
+                LogicManager.Process(handler, command);
             }
             else
             { 
@@ -143,9 +140,16 @@ public class AsynchronousSocketListener
         }
     }
 
-    public static void Send(Socket handler, Object data)
+    public static void Send(Socket handler, CommandBase data)
     {
-        byte[] byteData = SocketParser.Serialize(data);
+        Console.WriteLine("[AsynchronousSocketListener][Send]: " + data.CommandType);
+
+        byte[] byteData;
+        if (!SocketParser.TrySerialize(data, out byteData))
+        {
+            Console.WriteLine("[ERROR] Send error, invalidobject: " + data);
+            return;
+        }
 
         // Begin sending the data to the remote device.
         handler.BeginSend(byteData, 0, byteData.Length, 0,

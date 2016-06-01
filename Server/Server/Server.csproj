@@ -55,9 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBaseManager.cs" />
+    <Compile Include="DataBase\DataBaseManager.cs" />
+    <Compile Include="DataBase\Records\DataJSONRecordMap.cs" />
+    <Compile Include="Logic\LogicManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataBase\Records\DataJSONRecord.cs" />
+    <Compile Include="DataBase\Records\IndicatorJSONRecord.cs" />
+    <Compile Include="DataBase\Records\IndicatorJSONRecordMap.cs" />
+    <Compile Include="DataBase\Records\RegionJSONRecord.cs" />
+    <Compile Include="DataBase\Records\RegionJSONRecordMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
