@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.MVC;
 
-public class ServerConnectMediator : MonoBehaviour {
+public class ServerConnectMediator : MediatorBase
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	{
+    private ServerConnectView _view;
+
+    public override void Mediate(ViewBase view)
+    {
+        _view = (ServerConnectView)view;
+    }
+    public override void UnMediate()
+    {
+
+    }
+    public override ViewBase View
+    {
+        get { return _view; }
+    }
+
 }
