@@ -30,9 +30,16 @@ Diploma_Fake/ClientUnity.sln
 Server/.vs
 Server/Server/bin
 Server/Server/obj
+#============
+#Common
+#============
 Common/.vs
+Common/Common/.vs
 Common/Common/bin
 Common/Common/obj
+#============
+#Client
+#============
 Client/.vs
 Client/Client/bin
 Client/Client/obj
