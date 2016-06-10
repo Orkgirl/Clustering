@@ -32,7 +32,7 @@ namespace Assets.Scripts.MVC
             _dictionaryViewPrefab = new Dictionary<Type, string>();
 
             Map<StartMediator, StartView>("Prefabs/UI/Windows/StartView");
-            Map<RegionsIndicatorsMediator, RegionsIndicatorsView>("Prefabs/UI/Windows/RegionsIndicators");
+            Map<RegionsIndicatorsMediator, RegionsIndicatorsView>("Prefabs/UI/Windows/RegionsIndicators/RegionsIndicators");
             Map<SelectedIndicatorsMediator, SelectedIndicatorsView>("Prefabs/UI/Windows/SelectedIndicators");
             Map<ClusteringMediator, ClusteringView>("Prefabs/UI/Windows/Clustering");
             Map<MapMediator, MapView>("Prefabs/UI/Windows/Map");

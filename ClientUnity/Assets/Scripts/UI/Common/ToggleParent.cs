@@ -7,7 +7,7 @@ using System;
 
 public class ToggleParent : Toggle {
 
-    public Guid Id;
+    public int Id;
     public Text Label;
     public List<Toggle> child = new List<Toggle>();
 

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using Assets.Scripts.MVC;
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Entity;
 using Assets.Scripts.Managers.UI.Windows;
@@ -28,10 +28,10 @@ public class StartMediator : MediatorBase
         _windowManager = EntityContext.Get<WindowsManager>();
         _hudManager = EntityContext.Get<HUDManager>();
 
-        _view.OnNextButtonEvent += onNextButtonEventHeandler;
+        _view.OnNextButtonEvent += OnNextButtonEventHeandler;
     }
 
-    private void onNextButtonEventHeandler()
+    private void OnNextButtonEventHeandler()
     {
         _windowManager.Open(WindowType.RegionsIndicators);
         _hudManager.ShowHUD();
