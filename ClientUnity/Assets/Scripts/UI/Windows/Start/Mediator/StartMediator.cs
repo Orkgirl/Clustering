@@ -28,17 +28,11 @@ public class StartMediator : MediatorBase
         _windowManager = EntityContext.Get<WindowsManager>();
         _hudManager = EntityContext.Get<HUDManager>();
 
-        _view.TextHeader = "Ha ha ha!";
-
-        _view.Author = "Lizma - Klizma!!!";
-
         _view.OnNextButtonEvent += onNextButtonEventHeandler;
     }
 
     private void onNextButtonEventHeandler()
     {
-        _view.TextHeader = "ppppppppppppppp";
-
         _windowManager.Open(WindowType.RegionsIndicators);
         _hudManager.ShowHUD();
     }
