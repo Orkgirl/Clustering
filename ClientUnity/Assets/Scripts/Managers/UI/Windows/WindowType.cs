@@ -13,6 +13,7 @@ namespace Assets.Scripts.Managers.UI.Windows
         SelectedIndicators,
         Clustering,
         Map,
+        ServerConnect,
 
     }
 }

@@ -33,6 +33,7 @@ namespace Assets.Scripts.Managers
             _dictionary.Add(WindowType.SelectedIndicators, _mediatorViewMap.Get<SelectedIndicatorsMediator>);
             _dictionary.Add(WindowType.Clustering, _mediatorViewMap.Get<ClusteringMediator>);
             _dictionary.Add(WindowType.Map, _mediatorViewMap.Get<MapMediator>);
+            _dictionary.Add(WindowType.ServerConnect, _mediatorViewMap.Get<ServerConnectMediator>);
 
             //_dictionary.Add(WindowType.Indicator, _mediatorViewMap.Get<IndicatorMediator>);
 
