@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Entity;
+﻿using System;
+using Assets.Scripts.Entity;
 using UnityEngine;
 using Object = System.Object;
 
@@ -8,6 +9,19 @@ namespace Assets.Scripts.Managers.Net
 
     public class NetManager : IEntity
     {
+        private event Action<bool> _onConnectStatusEvent;
+        public event Action<bool> OnConnectStatusEvent
+        {
+            add
+            {
+                _onConnectStatusEvent += value;
+            }
+            remove
+            {
+                _onConnectStatusEvent -= value;
+            }
+        }
+
         public void Install()
         {
 
@@ -20,10 +34,12 @@ namespace Assets.Scripts.Managers.Net
 
         public void Connect()
         {
-            var coroutineExecuterGameObject = new GameObject();
-            coroutineExecuterGameObject.name = "CoroutineExecuter";
-            var coroutineExecuter = coroutineExecuterGameObject.AddComponent<CoroutineExecuterComponent>();
-            coroutineExecuter.ExecuteThread(AsynchronousClient.StartClient);
+            Connect("127.0.0.1", 11000);
+        }
+
+        public void Connect(string address, int port)
+        {
+            AsynchronousClient.StartClient(address, port);
         }
     }
 }

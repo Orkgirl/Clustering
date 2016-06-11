@@ -11,5 +11,15 @@ namespace Assets.Scripts.MVC
         public abstract void Mediate(ViewBase view);
         public abstract void UnMediate();
         public abstract ViewBase View { get; }
+
+        public virtual void Hide()
+        {
+            
+        }
+
+        public virtual void Show()
+        {
+            
+        }
     }
 }

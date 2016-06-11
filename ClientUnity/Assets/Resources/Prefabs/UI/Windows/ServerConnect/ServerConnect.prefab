@@ -605,6 +605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86200df1b64c84d498991252f215d658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _serverAdressInput: {fileID: 11482916}
+  _serverPortInput: {fileID: 11414492}
+  _serverUserNameInput: {fileID: 11400720}
+  _serverPasswordInput: {fileID: 11472906}
 --- !u!114 &11438228
 MonoBehaviour:
   m_ObjectHideFlags: 1

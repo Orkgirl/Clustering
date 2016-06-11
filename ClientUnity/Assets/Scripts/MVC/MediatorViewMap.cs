@@ -36,10 +36,9 @@ namespace Assets.Scripts.MVC
             Map<SelectedIndicatorsMediator, SelectedIndicatorsView>("Prefabs/UI/Windows/SelectedIndicators");
             Map<ClusteringMediator, ClusteringView>("Prefabs/UI/Windows/Clustering");
             Map<MapMediator, MapView>("Prefabs/UI/Windows/Map");
-
             Map<HeaderMediator, HeaderView>("Prefabs/UI/HUD/Header");
+            Map<ServerConnectMediator, ServerConnectView>("Prefabs/UI/Windows/ServerConnect/ServerConnect");
 
-            //Map<TopMenuMediator, TopMenuView>("Prefabs/UI/HUD/TopMenuView");                      
         }
 
         private void Map<TMediator, TView>(string value) where TMediator : MediatorBase where TView : ViewBase

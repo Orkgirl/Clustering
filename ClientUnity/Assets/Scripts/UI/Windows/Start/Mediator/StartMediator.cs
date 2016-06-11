@@ -11,8 +11,7 @@ public class StartMediator : MediatorBase
     private StartView _view;
 
     private WindowsManager _windowManager;
-    private HUDManager _hudManager;
-
+   
     public override ViewBase View
     {
         get
@@ -26,15 +25,13 @@ public class StartMediator : MediatorBase
         _view = (StartView)view;
 
         _windowManager = EntityContext.Get<WindowsManager>();
-        _hudManager = EntityContext.Get<HUDManager>();
 
         _view.OnNextButtonEvent += OnNextButtonEventHeandler;
     }
 
     private void OnNextButtonEventHeandler()
     {
-        _windowManager.Open(WindowType.RegionsIndicators);
-        _hudManager.ShowHUD();
+        _windowManager.Open(WindowType.ServerConnect);
     }
 
     public override void UnMediate()

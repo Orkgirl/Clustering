@@ -34,9 +34,6 @@ namespace Assets.Scripts.Managers
             _dictionary.Add(WindowType.Clustering, _mediatorViewMap.Get<ClusteringMediator>);
             _dictionary.Add(WindowType.Map, _mediatorViewMap.Get<MapMediator>);
             _dictionary.Add(WindowType.ServerConnect, _mediatorViewMap.Get<ServerConnectMediator>);
-
-            //_dictionary.Add(WindowType.Indicator, _mediatorViewMap.Get<IndicatorMediator>);
-
         }
 
         public void Open(WindowType window)
@@ -44,11 +41,13 @@ namespace Assets.Scripts.Managers
             
             if (_currentWindow != null)
             {
+                _currentWindow.Hide();
                 GameObject.Destroy(_currentWindow.View.gameObject);
-                _currentWindow.UnMediate();
+                
             }
 
             _currentWindow = _dictionary[window].Invoke(_layoutGameObject);
+            _currentWindow.Show();
         }
     }
 }

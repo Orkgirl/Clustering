@@ -26,7 +26,7 @@ namespace Assets.Scripts.Managers.Net
         // The response from the remote device.
         private static String response = String.Empty;
 
-        public static void StartClient()
+        public static void StartClient(string address, int port)
         {
             // Connect to a remote device.
             try
@@ -81,6 +81,8 @@ namespace Assets.Scripts.Managers.Net
                 Console.WriteLine(e.ToString());
             }
         }
+
+       
 
         private static void ConnectCallback(IAsyncResult ar)
         {
