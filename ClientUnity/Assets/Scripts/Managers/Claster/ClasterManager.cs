@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Assets.Scripts.Entity;
-using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Assets.Scripts.Managers.Claster
 {
     public class ClasterManager : IEntity
     {
         private ClusterMap _origCluster;
         private ClusterMap _normalizeCluster;
 
-        private bool _isInitialize = false;
-        public  bool IsInitialize { get { return _isInitialize; } }
+        public  bool IsInitialize { get; private set; }
 
-        public List<String> Indicators { get; set; }
-        public List<String> IndicatorsAll { get; private set; }
+        public List<string> Indicators { get; set; }
+        public List<string> IndicatorsAll { get; private set; }
 
         public void Install()
         {
@@ -29,7 +26,7 @@ namespace Assets.Scripts.Managers
 
         public void ParseData(StorageMapData storageMapData)
         {
-            ClusterMap mapData = new ClusterMap();
+            var mapData = new ClusterMap();
 
             foreach (var location in storageMapData.map)
             {
@@ -38,20 +35,16 @@ namespace Assets.Scripts.Managers
                     mapData.Add(new ClusterDataItem() { Row = location.name, Column = storagelocationDataKeyValue.key, Id = location.id, Value = storagelocationDataKeyValue.value });
                 }
             }
+            
+            _origCluster = mapData;
+            _normalizeCluster = Normolize(_origCluster);
 
-            if (mapData != null)
+            Indicators = _origCluster.ColumnsKeys;
+            IndicatorsAll = _origCluster.ColumnsKeys;
+
+            if (_origCluster != null && _normalizeCluster != null)
             {
-                _origCluster = mapData;
-                _normalizeCluster = Normolize(_origCluster);
-
-                Indicators = _origCluster.ColumnsKeys;
-                IndicatorsAll = _origCluster.ColumnsKeys;
-
-
-                if (_origCluster != null && _normalizeCluster != null)
-                {
-                    _isInitialize = true;
-                }
+                IsInitialize = true;
             }
         }
 
@@ -150,6 +143,7 @@ namespace Assets.Scripts.Managers
         private ClusterMap Normolize(ClusterMap orig)
         {
             var result = new ClusterMap();
+
             float averageQuadratic = 0;
             float sampleMean = 0;
 
@@ -175,6 +169,7 @@ namespace Assets.Scripts.Managers
                 {
                     sumOfDifferenceCurrentSample += (columns[i].Value - sampleMean) * (columns[i].Value - sampleMean);
                 }
+
                 averageQuadratic = (float)Math.Sqrt((1f / ((float)columns.Count - 1f)) * sumOfDifferenceCurrentSample);
 
                 //result.Columns.Add(key, new List<ClusterDataItem>());

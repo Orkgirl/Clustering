@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.Claster;
 using Assets.Scripts.Managers.Net;
 using Assets.Scripts.MVC;
 
