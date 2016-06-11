@@ -33,7 +33,7 @@ namespace Assets.Scripts.MVC
 
             Map<StartMediator, StartView>("Prefabs/UI/Windows/StartView");
             Map<RegionsIndicatorsMediator, RegionsIndicatorsView>("Prefabs/UI/Windows/RegionsIndicators/RegionsIndicators");
-            Map<SelectedIndicatorsMediator, SelectedIndicatorsView>("Prefabs/UI/Windows/SelectedIndicators");
+            Map<SelectedIndicatorsMediator, SelectedIndicatorsView>("Prefabs/UI/Windows/SelectedIndicators/SelectedIndicators");
             Map<ClusteringMediator, ClusteringView>("Prefabs/UI/Windows/Clustering");
             Map<MapMediator, MapView>("Prefabs/UI/Windows/Map");
             Map<HeaderMediator, HeaderView>("Prefabs/UI/HUD/Header");

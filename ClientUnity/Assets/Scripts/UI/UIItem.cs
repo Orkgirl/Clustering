@@ -14,14 +14,14 @@ public class UIItem : MonoBehaviour
     //    this.gameObject.SetActive(true);
     //}
    
-    public virtual T AddChild<T>(GameObject prefab) where T : MonoBehaviour
+    public virtual T AddChild<T>(T prefab) where T : MonoBehaviour
     {
         if (prefab == null)
         {
             throw new Exception(this.name + " AddChild invalid prefab: null");
             //return null;
         }
-        var go = Instantiate(prefab) as GameObject;
+        var go = Instantiate(prefab.gameObject) as GameObject;
 
         go.transform.SetParent(this.transform, false);
 

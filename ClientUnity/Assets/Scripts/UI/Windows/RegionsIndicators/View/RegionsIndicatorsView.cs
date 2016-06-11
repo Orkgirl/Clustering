@@ -21,7 +21,7 @@ public class RegionsIndicatorsView : ViewBase
     {
         foreach (var indicator in indicators)
         {
-            var item = _indicatorsContainer.AddChild<ToggleParent>(_toggleParentPrefab.gameObject);
+            var item = _indicatorsContainer.AddChild(_toggleParentPrefab);
             item.Id = indicator.Key;
             item.Label.text = indicator.Value;
         }
