@@ -11,13 +11,18 @@ public class SelectedIndicatorsView : ViewBase
     [SerializeField]
     private IndicatorsContainerView _verticalIndicatorsPrefab;
 
-    public void SetData (List<SelectedRegionsData> list)
+    public void SetData (float[][] list)
     {
-        foreach (var regionData in list)
+
+        for(var i = 0; i < list.Length; i++)
         {
             var region = _HorisontalIndicatorsContainer.AddChild(_verticalIndicatorsPrefab);
-            region.SetData(regionData);
-        } 
+            region.Title = i.ToString();
+            region.SetData(list[i]);           
+        }
+
+
+        
     }
 }
 

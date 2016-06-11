@@ -44,6 +44,8 @@ public class ServerConnectMediator : MediatorBase
 
     private void OnConnectButtonEvent()
     {
+        OnConnectStatusEvent(true);
+        return;
         string address = _view.ServerAdressInput;
         if (string.IsNullOrEmpty(address))
         {

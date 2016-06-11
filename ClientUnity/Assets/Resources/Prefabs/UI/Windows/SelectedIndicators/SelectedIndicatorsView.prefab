@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _indicatorContainer: {fileID: 11444366}
   _itemPrefab: {fileID: 11412018, guid: 3b342645bab7df5438cf3ee99b1a7783, type: 2}
+  _title: {fileID: 11468010}
 --- !u!114 &11444366
 MonoBehaviour:
   m_ObjectHideFlags: 1

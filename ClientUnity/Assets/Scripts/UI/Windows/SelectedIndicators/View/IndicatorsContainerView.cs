@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class IndicatorsContainerView : UIItem
 {
@@ -11,13 +12,18 @@ public class IndicatorsContainerView : UIItem
     [SerializeField]
     private IndicatorItemView _itemPrefab;
 
-    public void SetData(SelectedRegionsData regionData)
+
+    [SerializeField]
+    private Text _title;
+
+    public string Title { get { return _title.text; } set { _title.text = value; } }
+
+    public void SetData(float[] list)
     {
-        foreach (var indicatorData in regionData.Indicators)
+        for (var i = 0; i < list.Length; i++)
         {
-            var region = _indicatorContainer.AddChild(_itemPrefab);
-            region.Label = indicatorData.Value.ToString();
-        }
-    
+           var region = _indicatorContainer.AddChild(_itemPrefab);
+            region.Label = list[i].ToString();
+        }    
     }
 }

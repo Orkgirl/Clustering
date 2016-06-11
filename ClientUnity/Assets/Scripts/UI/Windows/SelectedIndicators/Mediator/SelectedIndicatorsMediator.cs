@@ -11,7 +11,16 @@ public class SelectedIndicatorsMediator : MediatorBase
     {
         _view = (SelectedIndicatorsView)view;
 
-        _view.SetData(new List<SelectedRegionsData>() { new SelectedRegionsData() { Id = 0, Name = "hhhh", Indicators = new List<SelectedIndicatorsData> { new SelectedIndicatorsData() { Id = 0, Name = "gggg", Value = 6666999 } } } });
+        var ssss = new float[5][];
+        for (var i = 0; i < ssss.Length; i++)
+        {
+            ssss[i] = new float[5];
+            for (var j = 0; j < ssss[i].Length; j++)
+            {
+                ssss[i][j] = UnityEngine.Random.Range(0, 100);
+            }
+        }
+            _view.SetData(ssss);
     }
     public override void UnMediate()
     {
