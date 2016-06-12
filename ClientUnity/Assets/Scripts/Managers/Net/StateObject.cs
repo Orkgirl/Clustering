@@ -12,6 +12,6 @@ namespace Assets.Scripts.Managers.Net
         // Receive buffer.
         public byte[] buffer = new byte[BufferSize];
         // Received data string.
-        public StringBuilder sb = new StringBuilder();
+        //public StringBuilder sb = new StringBuilder();
     }
 }

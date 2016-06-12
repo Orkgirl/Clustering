@@ -4,7 +4,7 @@ using System.Collections;
 using Assets.Scripts.MVC;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Entity;
-using Assets.Scripts.Managers.UI.Windows;
+using Assets.Scripts.Managers.Windows;
 
 public class StartMediator : MediatorBase
 {

@@ -3,8 +3,9 @@ using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Entity;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.HUD;
 using Assets.Scripts.Managers.Net;
-using Assets.Scripts.Managers.UI.Windows;
+using Assets.Scripts.Managers.Windows;
 using Assets.Scripts.MVC;
 
 public class ServerConnectMediator : MediatorBase
@@ -44,8 +45,6 @@ public class ServerConnectMediator : MediatorBase
 
     private void OnConnectButtonEvent()
     {
-        OnConnectStatusEvent(true);
-        return;
         string address = _view.ServerAdressInput;
         if (string.IsNullOrEmpty(address))
         {

@@ -11,22 +11,48 @@ namespace Assets.Scripts.Managers.Net
     public class AsynchronousClient
     {
         // The port number for the remote device.
-        private const int port = 11000;
+        //private const int port = 11000;
 
         // ManualResetEvent instances signal completion.
-        private static ManualResetEvent connectDone =
-            new ManualResetEvent(false);
+        //private ManualResetEvent connectDone =
+        //    new ManualResetEvent(false);
 
-        private static ManualResetEvent sendDone =
-            new ManualResetEvent(false);
+        //private ManualResetEvent sendDone =
+        //    new ManualResetEvent(false);
 
-        private static ManualResetEvent receiveDone =
-            new ManualResetEvent(false);
+        //private ManualResetEvent receiveDone =
+        //    new ManualResetEvent(false);
 
         // The response from the remote device.
-        private static String response = String.Empty;
+        //private String response = String.Empty;
+        private event Action<bool> _connectStatusEvent;
+        public event Action<bool> ConnectStatusEvent
+        {
+            add
+            {
+                _connectStatusEvent += value;
+            }
+            remove
+            {
+                _connectStatusEvent -= value;
+            }
+        }
 
-        public static void StartClient(string address, int port)
+        private event Action<CommandBase> _reciveEvent;
+        public event Action<CommandBase> ReciveEvent
+        {
+            add
+            {
+                _reciveEvent += value;
+            }
+            remove
+            {
+                _reciveEvent -= value;
+            }
+        }
+
+
+        public void StartClient(string address, int port)
         {
             // Connect to a remote device.
             try
@@ -34,7 +60,7 @@ namespace Assets.Scripts.Managers.Net
                 // Establish the remote endpoint for the socket.
                 // The name of the 
                 // remote device is "host.contoso.com".
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(address);//Dns.GetHostName());
                 IPAddress ipAddress = null;
                 foreach (var item in ipHostInfo.AddressList)
                 {
@@ -58,22 +84,24 @@ namespace Assets.Scripts.Managers.Net
                 // Connect to the remote endpoint.
                 client.BeginConnect(remoteEP,
                     new AsyncCallback(ConnectCallback), client);
-                connectDone.WaitOne();
+                //connectDone.WaitOne();
 
-                // Send test data to the remote device.
-                Send(client, new GetRegionCommand());
-                sendDone.WaitOne();
+                //// Send test data to the remote device.
+                //Send(client, new GetRegionCommand());
+                //Send(client, new GetIndicatorCommand());
+                //Send(client, new GetDataCommand("all"));
+                //sendDone.WaitOne();
 
-                // Receive the response from the remote device.
-                Receive(client);
-                receiveDone.WaitOne();
+                //// Receive the response from the remote device.
+                //Receive(client);
+                //receiveDone.WaitOne();
 
-                // Write the response to the console.
-                Console.WriteLine("Response received : {0}", response);
+                //// Write the response to the console.
+                ////Console.WriteLine("Response received : {0}", response);
 
-                // Release the socket.
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
+                //// Release the socket.
+                //client.Shutdown(SocketShutdown.Both);
+                //client.Close();
 
             }
             catch (Exception e)
@@ -82,9 +110,7 @@ namespace Assets.Scripts.Managers.Net
             }
         }
 
-       
-
-        private static void ConnectCallback(IAsyncResult ar)
+        private void ConnectCallback(IAsyncResult ar)
         {
             try
             {
@@ -97,16 +123,26 @@ namespace Assets.Scripts.Managers.Net
                 Console.WriteLine("Socket connected to {0}",
                     client.RemoteEndPoint.ToString());
 
+                Receive(client);
+
                 // Signal that the connection has been made.
-                connectDone.Set();
+                //connectDone.Set();
+                if (_connectStatusEvent != null)
+                {
+                    _connectStatusEvent.Invoke(true);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                if (_connectStatusEvent != null)
+                {
+                    _connectStatusEvent.Invoke(false);
+                }
             }
         }
 
-        private static void Receive(Socket client)
+        private void Receive(Socket client)
         {
             try
             {
@@ -124,7 +160,7 @@ namespace Assets.Scripts.Managers.Net
             }
         }
 
-        private static void ReceiveCallback(IAsyncResult ar)
+        private void ReceiveCallback(IAsyncResult ar)
         {
             try
             {
@@ -138,22 +174,33 @@ namespace Assets.Scripts.Managers.Net
 
                 if (bytesRead > 0)
                 {
-                    // There might be more data, so store the data received so far.
-                    state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    CommandBase command;
 
-                    // Get the rest of the data.
-                    client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                        new AsyncCallback(ReceiveCallback), state);
+                    if (SocketParser.TryDeserialize(state.buffer, bytesRead, out command))
+                    {
+                        Console.WriteLine("[AsynchronousClient][ReceiveCallback] command: " + command.CommandType);
+                        if (_reciveEvent != null)
+                        {
+                            _reciveEvent.Invoke(command);
+                        }
+                    }
+                    else
+                    {
+                        // Not all data received. Get more.
+
+                        client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                            new AsyncCallback(ReceiveCallback), state);
+                    }
                 }
                 else
                 {
-                    // All the data has arrived; put it in response.
-                    if (state.sb.Length > 1)
-                    {
-                        response = state.sb.ToString();
-                    }
+                    //// All the data has arrived; put it in response.
+                    //if (state.sb.Length > 1)
+                    //{
+                    //    response = state.sb.ToString();
+                    //}
                     // Signal that all bytes have been received.
-                    receiveDone.Set();
+                    //receiveDone.Set();
                 }
             }
             catch (Exception e)
@@ -162,19 +209,21 @@ namespace Assets.Scripts.Managers.Net
             }
         }
 
-        private static void Send(Socket client, CommandBase data)
+        private void Send(Socket client, CommandBase data)
         {
             // Convert the string data to byte data using ASCII encoding.
             byte[] byteData;
-            if (SocketParser.TrySerialize(data, out byteData))
+            if (!SocketParser.TrySerialize(data, out byteData))
             {
-                // Begin sending the data to the remote device.
-                client.BeginSend(byteData, 0, byteData.Length, 0,
-                    new AsyncCallback(SendCallback), client);
+                return;
             }
+
+            // Begin sending the data to the remote device.
+            client.BeginSend(byteData, 0, byteData.Length, 0,
+                new AsyncCallback(SendCallback), client);
         }
 
-        private static void SendCallback(IAsyncResult ar)
+        private void SendCallback(IAsyncResult ar)
         {
             try
             {
@@ -186,7 +235,7 @@ namespace Assets.Scripts.Managers.Net
                 Console.WriteLine("Sent {0} bytes to server.", bytesSent);
 
                 // Signal that all bytes have been sent.
-                sendDone.Set();
+                //sendDone.Set();
             }
             catch (Exception e)
             {

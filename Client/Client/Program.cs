@@ -16,7 +16,7 @@ public class StateObject
     // Receive buffer.
     public byte[] buffer = new byte[BufferSize];
     // Received data string.
-    public StringBuilder sb = new StringBuilder();
+    //public StringBuilder sb = new StringBuilder();
 }
 
 public class AsynchronousClient
@@ -163,11 +163,11 @@ public class AsynchronousClient
             }
             else
             {
-                // All the data has arrived; put it in response.
-                if (state.sb.Length > 1)
-                {
-                    response = state.sb.ToString();
-                }
+                //// All the data has arrived; put it in response.
+                //if (state.sb.Length > 1)
+                //{
+                //    response = state.sb.ToString();
+                //}
                 // Signal that all bytes have been received.
                 receiveDone.Set();
             }

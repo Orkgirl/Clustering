@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Claster;
+using Assets.Scripts.Managers.HUD;
+using Assets.Scripts.Managers.Logger;
 using Assets.Scripts.Managers.Net;
+using Assets.Scripts.Managers.Windows;
 using Assets.Scripts.MVC;
 
 namespace Assets.Scripts.Entity
@@ -36,6 +39,7 @@ namespace Assets.Scripts.Entity
             _dictionary.Add(typeof(ResourcesManager), new ResourcesManager());
             _dictionary.Add(typeof(ClasterManager), new ClasterManager());
             _dictionary.Add(typeof(NetManager), new NetManager());
+            _dictionary.Add(typeof(LoggerManager), new LoggerManager());
 
             foreach (var entity in _dictionary.Values)
             {

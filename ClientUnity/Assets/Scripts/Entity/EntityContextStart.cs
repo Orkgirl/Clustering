@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Managers;
-using Assets.Scripts.Managers.UI.Windows;
+using Assets.Scripts.Managers.Windows;
 using UnityEngine;
 
 namespace Assets.Scripts.Entity
