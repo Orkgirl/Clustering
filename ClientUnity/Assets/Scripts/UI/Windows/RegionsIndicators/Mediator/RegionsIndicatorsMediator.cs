@@ -11,7 +11,7 @@ public class RegionsIndicatorsMediator : MediatorBase
     {
         _view = (RegionsIndicatorsView)view;
 
-        _view.SetIndicators(new Dictionary<int, string>() { {104,"root"}, {1,"huut"} });
+        _view.SetIndicators(new Dictionary<int, string>() { {104,"blabla"}, {1,"huut"}, { 45, "ololo"} });
     }
     public override void UnMediate()
     {

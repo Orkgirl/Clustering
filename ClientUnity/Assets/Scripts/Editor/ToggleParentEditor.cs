@@ -10,12 +10,6 @@ public class ToggleParentEditor : Editor
     {
         base.DrawDefaultInspector();
         ToggleParent toggle = (ToggleParent) target;
-        if (toggle.Label)
-        {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Label: ");
-            toggle.Label.text = GUILayout.TextField(toggle.Label.text);
-            GUILayout.EndHorizontal();
-        }
+        
     }
 }

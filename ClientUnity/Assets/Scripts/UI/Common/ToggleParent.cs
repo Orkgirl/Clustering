@@ -5,10 +5,20 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System;
 
-public class ToggleParent : Toggle {
+public class ToggleParent : Toggle
+{
+
+    [SerializeField]
+    private Text _label;
+    public string Label
+    {
+        set { _label.text = value; }
+        get { return _label.text; }
+    }
+
 
     public int Id;
-    public Text Label;
+     
     public List<Toggle> child = new List<Toggle>();
 
     

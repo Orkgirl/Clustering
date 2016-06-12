@@ -17,13 +17,18 @@ public class RegionsIndicatorsView : ViewBase
         set { _toggleParentPrefab = value; }
     }
 
+
     public void SetIndicators(Dictionary<int, string> indicators)
     {
+        var root = _indicatorsContainer.AddChild(_toggleParentPrefab);
+       
+       root.Label = "Показати всі";
         foreach (var indicator in indicators)
         {
             var item = _indicatorsContainer.AddChild(_toggleParentPrefab);
             item.Id = indicator.Key;
-            item.Label.text = indicator.Value;
+            item.Label = indicator.Value;
+            root.child.Add(item);
         }
     }
 
