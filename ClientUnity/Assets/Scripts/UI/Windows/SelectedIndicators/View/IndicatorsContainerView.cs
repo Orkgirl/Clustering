@@ -23,6 +23,7 @@ public class IndicatorsContainerView : UIItem
         for (var i = 0; i < list.Length; i++)
         {
            var region = _indicatorContainer.AddChild(_itemPrefab);
+            var indicatorName = i.ToString();
             region.Label = list[i].ToString();
         }    
     }
