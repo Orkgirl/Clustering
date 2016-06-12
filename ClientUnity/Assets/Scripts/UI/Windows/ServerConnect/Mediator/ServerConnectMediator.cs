@@ -26,16 +26,23 @@ public class ServerConnectMediator : MediatorBase
         _netManager = EntityContext.Get<NetManager>();
 
         _view.OnConnectButtonEvent += OnConnectButtonEvent;
-        _netManager.OnConnectStatusEvent += OnConnectStatusEvent;
+        _netManager.ConnectStatusEvent += OnConnectStatusEvent;
 
+        _netManager.DataReceivedEvent += NetManagerOnDataReceivedEvent;
+
+    }
+
+    private void NetManagerOnDataReceivedEvent()
+    {
+        _windowManager.Open(WindowType.RegionsIndicators);
+        _hudManager.ShowHUD();
     }
 
     private void OnConnectStatusEvent(bool status)
     {
         if (status)
         {
-            _windowManager.Open(WindowType.RegionsIndicators);
-            _hudManager.ShowHUD();
+            //TODO Show status
         }
         else
         {
@@ -63,7 +70,6 @@ public class ServerConnectMediator : MediatorBase
     public override void UnMediate()
     {
         _view.OnConnectButtonEvent -= OnConnectButtonEvent;
-        _netManager.OnConnectStatusEvent -= OnConnectStatusEvent;
     }
     public override ViewBase View
     {

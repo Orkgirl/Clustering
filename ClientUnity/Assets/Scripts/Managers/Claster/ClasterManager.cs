@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Entity;
+using Common.Net.Commands;
 
 namespace Assets.Scripts.Managers.Claster
 {
@@ -205,6 +206,20 @@ namespace Assets.Scripts.Managers.Claster
             return _origCluster;
         }
 
-       
+
+        public void SetIndicators(SetIndicatorCommand command)
+        {
+            
+        }
+
+        public void SetRegion(SetRegionCommand command)
+        {
+            
+        }
+
+        public void SetData(SetDataCommand command)
+        {
+            
+        }
     }
 }
