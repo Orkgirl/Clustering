@@ -24,6 +24,11 @@ namespace Assets.Scripts.Managers.Claster
             
         }
 
+        public void Tick(float deltaTime)
+        {
+            
+        }
+
         public void ParseData(StorageMapData storageMapData)
         {
             var mapData = new ClusterMap();

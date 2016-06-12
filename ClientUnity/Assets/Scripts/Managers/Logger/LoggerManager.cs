@@ -16,11 +16,17 @@ namespace Assets.Scripts.Managers.Logger
         {
             _layoutGameObject = GameObject.Find(_layoutName).GetComponent<UIItem>();
             _logger = new UnityEngine.Logger(new LoggerHelper());
+            Common.Logger.Initialize(this);
         }
 
         public void Initialaze()
         {
 
+        }
+
+        public void Tick(float deltaTime)
+        {
+            
         }
 
         public ILogHandler logHandler { get; set; }
@@ -64,7 +70,7 @@ namespace Assets.Scripts.Managers.Logger
 
         public void Log(object message)
         {
-            throw new NotImplementedException();
+            _logger.Log(message);
         }
 
         public void Log(string tag, object message)

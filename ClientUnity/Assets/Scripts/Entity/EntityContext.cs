@@ -54,5 +54,13 @@ namespace Assets.Scripts.Entity
                 entity.Initialaze();
             }
         }
+
+        public static void Tick(float deltaTime)
+        {
+            foreach (var entity in _dictionary.Values)
+            {
+                entity.Tick(deltaTime);
+            }
+        }
     }
 }

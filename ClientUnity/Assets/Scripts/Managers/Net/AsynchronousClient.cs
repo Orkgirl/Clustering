@@ -75,6 +75,8 @@ namespace Assets.Scripts.Managers.Net
                     return;
                 }
 
+                Common.Logger.Log("[AsynchronousClient][StartClient] " + ipAddress + " : " + port);
+
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.
@@ -120,8 +122,7 @@ namespace Assets.Scripts.Managers.Net
                 // Complete the connection.
                 client.EndConnect(ar);
 
-                Console.WriteLine("Socket connected to {0}",
-                    client.RemoteEndPoint.ToString());
+                Common.Logger.Log("Socket connected to " + client.RemoteEndPoint.ToString());
 
                 Receive(client);
 
@@ -131,6 +132,7 @@ namespace Assets.Scripts.Managers.Net
                 {
                     _connectStatusEvent.Invoke(true);
                 }
+
             }
             catch (Exception e)
             {

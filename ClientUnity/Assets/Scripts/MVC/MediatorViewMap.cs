@@ -26,6 +26,11 @@ namespace Assets.Scripts.MVC
 
         }
 
+        public void Tick(float deltaTime)
+        {
+            
+        }
+
         public MediatorViewMap()
         {
             _dictionaryMediatorView = new Dictionary<Type, Type>();

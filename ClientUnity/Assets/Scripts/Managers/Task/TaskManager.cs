@@ -23,5 +23,10 @@ namespace Assets.Scripts.Managers.Task
         {
             
         }
+
+        public void Tick(float deltaTime)
+        {
+            
+        }
     }
 }

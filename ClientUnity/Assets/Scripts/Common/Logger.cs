@@ -61,7 +61,7 @@ namespace Assets.Scripts.Common
 
         public static void Log(object message)
         {
-            throw new NotImplementedException();
+            _loggerManager.Log(message);
         }
 
         public static void Log(string tag, object message)

@@ -55,6 +55,11 @@ namespace Assets.Scripts.Managers
         {
         }
 
+        public void Tick(float deltaTime)
+        {
+            
+        }
+
         private Dictionary<string, string> _configTable = new Dictionary<string, string>();
         //{
         //    {"2012 - 2013", "Data2"},

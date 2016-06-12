@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Assets.Scripts.Entity;
 using Common.Net.Commands;
 using UnityEngine;
@@ -21,6 +22,9 @@ namespace Assets.Scripts.Managers.Net
         private AsynchronousClient _client;
         private Queue<CommandBase> _commands;
 
+        private bool _connectStatus = false;
+        private bool _connectStatusUpdated = true;
+
         public void Install()
         {
             _commands = new Queue<CommandBase>();
@@ -32,9 +36,21 @@ namespace Assets.Scripts.Managers.Net
 
         private void ClientOnConnectStatusEvent(bool status)
         {
+            _connectStatus = status;
+            _connectStatusUpdated = false;
+        }
+
+        private void ClientStatusUpdate()
+        {
+            if (_connectStatusUpdated)
+            {
+                return;
+            }
+            _connectStatusUpdated = true;
+
             if (_onConnectStatusEvent != null)
             {
-                _onConnectStatusEvent.Invoke(status);
+                _onConnectStatusEvent.Invoke(_connectStatus);
             }
         }
 
@@ -48,6 +64,11 @@ namespace Assets.Scripts.Managers.Net
 
         }
 
+        public void Tick(float deltaTime)
+        {
+            ClientStatusUpdate();
+        }
+
         public void Connect()
         {
             Connect("127.0.0.1", 11000);
@@ -55,6 +76,7 @@ namespace Assets.Scripts.Managers.Net
 
         public void Connect(string address, int port)
         {
+            Common.Logger.Log("[NetManager][Connect] " + address + " : " + port);
             _client.StartClient(address, port);
         }
     }

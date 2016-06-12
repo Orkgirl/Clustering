@@ -20,6 +20,8 @@ namespace Assets.Scripts.Entity
 
         protected void Update()
         {
+            EntityContext.Tick(Time.deltaTime);
+
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 Application.Quit();

@@ -35,6 +35,11 @@ namespace Assets.Scripts.Managers.Windows
             _dictionary.Add(WindowType.ServerConnect, _mediatorViewMap.Get<ServerConnectMediator>);
         }
 
+        public void Tick(float deltaTime)
+        {
+            
+        }
+
         public void Open(WindowType window)
         {
             

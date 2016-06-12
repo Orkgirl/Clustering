@@ -21,6 +21,11 @@ namespace Assets.Scripts.Managers.HUD
             _layoutGameObject = GameObject.Find(_layoutName).GetComponent<UIItem>();
         }
 
+        public void Tick(float deltaTime)
+        {
+            
+        }
+
         private HeaderMediator _header;
 
         public void ShowHUD()

@@ -4,5 +4,6 @@
     {
         void Install();
         void Initialaze();
+        void Tick(float deltaTime);
     }
 }
