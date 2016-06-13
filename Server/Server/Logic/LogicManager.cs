@@ -30,6 +30,5 @@ namespace Server.Logic
                     break;
             }
         }
-       
     }
 }

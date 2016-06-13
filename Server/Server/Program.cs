@@ -16,11 +16,11 @@ public class StateObject
     // Client  socket.
     public Socket workSocket = null;
     // Size of receive buffer.
-    public const int BufferSize = 1024;
+    public const int BufferSize = 2024;
     // Receive buffer.
     public byte[] buffer = new byte[BufferSize];
     // Received data string.
-    public StringBuilder sb = new StringBuilder();
+    //public StringBuilder sb = new StringBuilder();
 }
 
 public class AsynchronousSocketListener
@@ -37,7 +37,7 @@ public class AsynchronousSocketListener
         Console.WriteLine("[AsynchronousSocketListener][StartListening]");
 
         // Data buffer for incoming data.
-        byte[] bytes = new Byte[1024];
+        byte[] bytes = new Byte[2048];
 
         // Establish the local endpoint for the socket.
         // The DNS name of the computer
@@ -167,8 +167,8 @@ public class AsynchronousSocketListener
             int bytesSent = handler.EndSend(ar);
             Console.WriteLine("Sent {0} bytes to client.", bytesSent);
 
-            handler.Shutdown(SocketShutdown.Both);
-            handler.Close();
+            //handler.Shutdown(SocketShutdown.Both);
+            //handler.Close();
 
         }
         catch (Exception e)
